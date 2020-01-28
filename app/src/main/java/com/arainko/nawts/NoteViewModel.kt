@@ -17,9 +17,9 @@ class NoteViewModel(application: Application) : AndroidViewModel(application), C
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-    fun testAdd() {
+    fun addNote(header: String, content: String) {
         launch(Dispatchers.IO) {
-            repository.insert(Note("COS", "TAM"))
+            repository.insert(Note(header, content))
         }
     }
 

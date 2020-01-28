@@ -20,5 +20,10 @@
         android:id="@+id/noteEditFragment"
         android:name="com.arainko.nawts.view.NoteEditFragment"
         android:label="fragment_note_edit"
-        tools:layout="@layout/fragment_note_edit" />
+        tools:layout="@layout/fragment_note_edit" >
+        <action
+            android:id="@+id/action_noteEditFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/fragment_fade_enter" />
+    </fragment>
 </navigation>

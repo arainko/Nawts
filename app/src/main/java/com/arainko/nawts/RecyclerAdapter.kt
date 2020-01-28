@@ -24,12 +24,14 @@ class RecyclerAdapter() : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentNote = notes[position]
         holder.noteContent.text = currentNote.content
+        holder.noteHeader.text = currentNote.header
     }
 
     override fun getItemCount(): Int = notes.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val noteContent = itemView.cardText
+        val noteHeader = itemView.cardHeader
     }
 
 }
