@@ -19,6 +19,7 @@ import com.arainko.nawts.persistence.Note
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 /**
@@ -30,7 +31,7 @@ class MainFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
         val model: NoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         val adapter = RecyclerAdapter()
-
+        val job = Job()
         view.recyclerView.layoutManager = LinearLayoutManager(this.context)
         view.recyclerView.adapter = adapter
 
@@ -42,15 +43,6 @@ class MainFragment : Fragment() {
         }
 //        test()
         return view
-    }
-
-    fun test() {
-        GlobalScope.launch {
-            val model: NoteViewModel = ViewModelProvider(this@MainFragment).get(NoteViewModel::class.java)
-            model.repository.insert(Note(1, "ASS", "ASS"))
-            model.repository.insert(Note(2, "ASS", "ASS"))
-            model.repository.insert(Note(3, "ASS", "ASS"))
-        }
     }
 
 

@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "notes")
 data class Note(
-    @PrimaryKey
-    var id: Int,
-
     @ColumnInfo(name = "header")
     var header: String,
 
     @ColumnInfo(name = "content")
-    var content: String
+    var content: String,
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 )
