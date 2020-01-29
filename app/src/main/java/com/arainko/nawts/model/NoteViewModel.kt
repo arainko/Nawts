@@ -1,4 +1,4 @@
-package com.arainko.nawts
+package com.arainko.nawts.model
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -20,6 +20,12 @@ class NoteViewModel(application: Application) : AndroidViewModel(application), C
     fun addNote(header: String, content: String) {
         launch(Dispatchers.IO) {
             repository.insert(Note(header, content))
+        }
+    }
+
+    fun updateNote(header: String, content: String) {
+        launch(Dispatchers.IO) {
+            repository.update(Note(header, content, 2))
         }
     }
 

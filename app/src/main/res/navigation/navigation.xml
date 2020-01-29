@@ -16,6 +16,7 @@
             app:enterAnim="@anim/fragment_open_enter"
             app:popUpTo="@+id/mainFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/noteEditFragment"
         android:name="com.arainko.nawts.view.NoteEditFragment"
@@ -25,5 +26,16 @@
             android:id="@+id/action_noteEditFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:enterAnim="@anim/fragment_fade_enter" />
+        <argument
+            android:name="header"
+            app:argType="string" />
+        <argument
+            android:name="content"
+            app:argType="string" />
+        <argument
+            android:name="databaseId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
+
 </navigation>
