@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arainko.nawts.R
 import com.arainko.nawts.persistence.Note
 import kotlinx.android.synthetic.main.note_layout.view.*
-import kotlin.properties.Delegates.notNull
+import kotlin.properties.Delegates
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
@@ -34,18 +34,18 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = notes.size
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var noteId: Int = -1
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        var noteId: Int by Delegates.notNull()
         val noteContent: TextView = itemView.cardText
         val noteHeader: TextView = itemView.cardHeader
+        init { itemView.setOnClickListener(this) }
 
-        init {
+        override fun onClick(view: View) {
             val action = MainFragmentDirections.actionMainFragmentToNoteEditFragment(
                 noteHeader.text.toString(),
                 noteContent.text.toString(),
                 noteId)
-            val onClick = Navigation.createNavigateOnClickListener(action)
-            itemView.setOnClickListener(onClick)
+            Navigation.findNavController(view).navigate(action)
         }
     }
 
