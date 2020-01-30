@@ -18,13 +18,13 @@ class NoteViewModel(application: Application) : AndroidViewModel(application), C
         get() = job + Dispatchers.IO
 
     fun addNote(header: String, content: String) {
-        launch(Dispatchers.IO) {
+        launch(coroutineContext) {
             repository.insert(Note(header, content))
         }
     }
 
     fun updateNote(header: String, content: String, id: Int) {
-        launch(Dispatchers.IO) {
+        launch(coroutineContext) {
             repository.update(Note(header, content, id))
         }
     }

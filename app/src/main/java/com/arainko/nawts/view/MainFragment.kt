@@ -14,7 +14,6 @@ import com.arainko.nawts.model.NoteViewModel
 import com.arainko.nawts.R
 import com.arainko.nawts.persistence.Note
 import kotlinx.android.synthetic.main.fragment_main.view.*
-import kotlinx.coroutines.Job
 
 /**
  * A simple [Fragment] subclass.
@@ -22,21 +21,19 @@ import kotlinx.coroutines.Job
 class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_main, container, false)
         val model: NoteViewModel = ViewModelProvider(this).get(
             NoteViewModel::class.java)
         val adapter = RecyclerAdapter()
-        val action = MainFragmentDirections.actionMainFragmentToNoteEditFragment("header", "content", 2)
-        view.recyclerView.layoutManager = LinearLayoutManager(this.context)
-        view.recyclerView.adapter = adapter
-
         model.repository.getNotes().observe(this,
             Observer<List<Note>> { adapter.notes = it })
-
-        view.fabAdd.setOnClickListener {
-            view.findNavController().navigate(action)
+        return inflater.inflate(R.layout.fragment_main, container, false).apply {
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = adapter
+            fabAdd.setOnClickListener {
+                val action = MainFragmentDirections.actionMainFragmentToNoteEditFragment("", "")
+                findNavController().navigate(action)
+            }
         }
-        return view
     }
 
 
