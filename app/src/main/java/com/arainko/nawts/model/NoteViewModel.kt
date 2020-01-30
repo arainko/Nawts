@@ -23,10 +23,13 @@ class NoteViewModel(application: Application) : AndroidViewModel(application), C
         }
     }
 
-    fun updateNote(header: String, content: String) {
+    fun updateNote(header: String, content: String, id: Int) {
         launch(Dispatchers.IO) {
-            repository.update(Note(header, content, 2))
+            repository.update(Note(header, content, id))
         }
     }
 
+    fun deleteNote(id: Int) {
+        TODO()
+    }
 }
