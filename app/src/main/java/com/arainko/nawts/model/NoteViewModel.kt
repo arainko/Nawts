@@ -29,7 +29,9 @@ class NoteViewModel(application: Application) : AndroidViewModel(application), C
         }
     }
 
-    fun deleteNote(id: Int) {
-        TODO()
+    fun deleteNote(header: String, content: String, id: Int) {
+        launch(coroutineContext) {
+            repository.update(Note(header, content, id))
+        }
     }
 }
