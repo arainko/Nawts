@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.arainko.nawts.R
 import com.arainko.nawts.model.NoteViewModel
@@ -19,7 +20,7 @@ import com.arainko.nawts.persistence.NoteDatabase
 import kotlinx.android.synthetic.main.note_layout.view.*
 import kotlin.properties.Delegates
 
-class RecyclerAdapter(private val delegator: Delegator) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter : ListAdapter<Note ,RecyclerAdapter.ViewHolder>() {
 
     var notes: List<Note> = ArrayList()
     set(value) {
@@ -30,7 +31,7 @@ class RecyclerAdapter(private val delegator: Delegator) : RecyclerView.Adapter<R
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.note_layout, parent, false)
-        return ViewHolder(itemView, delegator)
+        return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -42,7 +43,9 @@ class RecyclerAdapter(private val delegator: Delegator) : RecyclerView.Adapter<R
 
     override fun getItemCount(): Int = notes.size
 
-    class ViewHolder(itemView: View, val delegator: Delegator) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener, View.OnLongClickListener {
+
         var noteId: Int by Delegates.notNull()
         val noteContent: TextView = itemView.cardText
         val noteHeader: TextView = itemView.cardHeader
@@ -60,7 +63,6 @@ class RecyclerAdapter(private val delegator: Delegator) : RecyclerView.Adapter<R
         }
 
         override fun onLongClick(view: View?): Boolean {
-            delegator.deleteNote(noteId)
             return false
         }
 

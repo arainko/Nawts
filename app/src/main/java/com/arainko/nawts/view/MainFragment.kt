@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arainko.nawts.model.NoteViewModel
 import com.arainko.nawts.R
 import com.arainko.nawts.persistence.Note
+import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 /**
@@ -21,10 +23,8 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 class MainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val model: NoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-        val delegator: Delegator = object : Delegator {
-            override fun deleteNote(id: Int) {
-                model.deleteNote("", "", id)
-            }
+        val delegator: (Int) -> Unit = { noteId ->
+            model.Actions().deleteAction(noteId)
         }
         val adapter = RecyclerAdapter(delegator)
         model.repository.getNotes().observe(this,

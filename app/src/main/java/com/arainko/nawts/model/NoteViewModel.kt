@@ -34,4 +34,10 @@ class NoteViewModel(application: Application) : AndroidViewModel(application), C
             repository.update(Note(header, content, id))
         }
     }
+
+    inner class Actions {
+        val addAction: (String, String) -> Unit = { header, content -> addNote(header, content) }
+        val updateAction: (String, String, Int) -> Unit = { header, content, id -> updateNote(header, content, id) }
+        val deleteAction: (Int) -> Unit = { deleteNote("", "", it) }
+    }
 }
