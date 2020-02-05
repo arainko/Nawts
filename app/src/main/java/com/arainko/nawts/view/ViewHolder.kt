@@ -17,8 +17,10 @@ class ViewHolder(itemView: View, private val dbActions: DatabaseActions) : Recyc
     val noteContent: TextView = itemView.cardText
     val noteHeader: TextView = itemView.cardHeader
     init {
-        itemView.setOnClickListener(this)
-        itemView.setOnLongClickListener(this)
+        itemView.apply {
+        setOnClickListener(this@ViewHolder)
+        setOnLongClickListener(this@ViewHolder)
+        }
     }
 
     override fun onClick(view: View) {
