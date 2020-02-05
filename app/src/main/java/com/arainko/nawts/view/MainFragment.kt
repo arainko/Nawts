@@ -23,19 +23,18 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 class MainFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val model: NoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-        val delegator: (Int) -> Unit = { noteId ->
-            model.Actions().deleteAction(noteId)
-        }
-        val adapter = RecyclerAdapter(delegator)
-        model.repository.getNotes().observe(this,
-            Observer<List<Note>> { adapter.notes = it })
+        val adapter = RecyclerAdapter(model)
+        model.notes.observe(this, Observer<List<Note>> { adapter.submitList(it) })
+
         return inflater.inflate(R.layout.fragment_main, container, false).apply {
             recyclerView.layoutManager = LinearLayoutManager(context)
             recyclerView.adapter = adapter
+            recyclerView.setHasFixedSize(true)
             fabAdd.setOnClickListener {
                 val action = MainFragmentDirections.actionMainFragmentToNoteEditFragment("", "")
                 findNavController().navigate(action)
             }
         }
     }
+
 }
