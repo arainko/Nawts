@@ -1,4 +1,4 @@
-package com.arainko.nawts.view
+package com.arainko.nawts.fragments
 
 
 import android.os.Bundle
@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arainko.nawts.model.NoteViewModel
 import com.arainko.nawts.R
 import com.arainko.nawts.persistence.Note
-import kotlinx.android.synthetic.main.fragment_main.*
+import com.arainko.nawts.view.RecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 /**

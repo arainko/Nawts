@@ -1,4 +1,4 @@
-package com.arainko.nawts.view
+package com.arainko.nawts.fragments
 
 
 import android.content.Context

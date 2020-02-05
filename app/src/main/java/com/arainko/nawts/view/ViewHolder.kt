@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.arainko.nawts.fragments.MainFragmentDirections
 import com.arainko.nawts.model.DatabaseActions
 import kotlinx.android.synthetic.main.note_layout.view.*
 import kotlin.properties.Delegates
