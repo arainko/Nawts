@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.arainko.nawts.model.NoteViewModel
 import com.arainko.nawts.R
+import com.arainko.nawts.extensions.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_note_edit.*
 import kotlinx.android.synthetic.main.fragment_note_edit.view.*
 
@@ -43,10 +44,6 @@ class NoteEditFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun View.hideKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
-    }
 
 
 }
