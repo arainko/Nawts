@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/editingFragment"
-        android:name="com.arainko.nawts.fragments.NoteEditFragment"
+        android:name="com.arainko.nawts.fragments.EditFragment"
         android:label="fragment_note_edit"
         tools:layout="@layout/fragment_note_edit" >
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/customizationFragment"
-        android:name="com.arainko.nawts.CustomizationFragment"
+        android:name="com.arainko.nawts.fragments.CustomizationFragment"
         android:label="fragment_customization"
         tools:layout="@layout/fragment_customization" />
 

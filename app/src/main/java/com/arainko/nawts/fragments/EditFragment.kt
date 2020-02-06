@@ -1,13 +1,11 @@
 package com.arainko.nawts.fragments
 
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_note_edit.view.*
 /**
  * A simple [Fragment] subclass.
  */
-class NoteEditFragment : Fragment(), View.OnClickListener {
+class EditFragment : Fragment(), View.OnClickListener {
 
     private val args: NoteEditFragmentArgs by navArgs()
 
@@ -28,7 +26,7 @@ class NoteEditFragment : Fragment(), View.OnClickListener {
         inflater.inflate(R.layout.fragment_note_edit, container, false).apply {
             headerField.setText(args.header)
             contentField.setText(args.content)
-            fabSave.setOnClickListener(this@NoteEditFragment)
+            fabSave.setOnClickListener(this@EditFragment)
         }
 
     override fun onClick(view: View?) {
