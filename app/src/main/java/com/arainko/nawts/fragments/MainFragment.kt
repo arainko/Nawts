@@ -36,6 +36,7 @@ class MainFragment : Fragment() {
                 val action = MainFragmentDirections.actionMainFragmentToNoteEditFragment("", "")
                 findNavController().navigate(action)
             }
+            bottom_app_bar.set
         }
     }
 

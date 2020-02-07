@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorContentBackground"
+    android:background="@color/colorSurface"
     tools:context=".fragments.MainFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -15,7 +15,8 @@
         app:borderWidth="6dp"
         app:srcCompat="@drawable/ic_fab_add"
         app:layout_anchor="@id/bottom_app_bar"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -29,6 +30,7 @@
         android:layout_gravity="bottom"
         app:backgroundTint="@color/colorPrimary"
         app:fabAlignmentMode="end"
-        app:hideOnScroll="true" />
+        app:hideOnScroll="true"
+        app:menu="@menu/nav_destinations"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
