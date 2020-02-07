@@ -7,14 +7,15 @@ import com.arainko.nawts.R
 import com.arainko.nawts.model.DatabaseActions
 import com.arainko.nawts.persistence.Note
 
-class RecyclerAdapter(private val dbActions: DatabaseActions) : ListAdapter<Note, ViewHolder>(NoteDiffUtil) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+class NoteAdapter(private val dbActions: DatabaseActions) : ListAdapter<Note, NoteHolder>(NoteDiffUtil) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.note_layout, parent, false)
-        return ViewHolder(itemView, dbActions)
+        return NoteHolder(itemView, dbActions)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NoteHolder, position: Int) {
         val currentNote = getItem(position)
         holder.noteContent.text = currentNote.content
         holder.noteHeader.text = currentNote.header

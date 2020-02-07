@@ -7,27 +7,14 @@
     android:background="@color/colorContentBackground"
     tools:context=".fragments.MainFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fabMain"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="bottom|end"-->
-<!--        android:backgroundTint="@color/colorAccent"-->
-<!--        app:borderWidth="0dp"-->
-<!--        android:layout_margin="@dimen/fab_margin"-->
-<!--        android:onClick="addNewCard"-->
-<!--        app:srcCompat="@drawable/ic_fab_plus" />-->
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         android:backgroundTint="@color/colorAccent"
         app:borderWidth="6dp"
         app:srcCompat="@drawable/ic_fab_add"
+        app:layout_anchor="@id/bottom_app_bar"
         android:layout_margin="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -35,5 +22,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:backgroundTint="@color/colorPrimary"
+        app:fabAlignmentMode="end"
+        app:hideOnScroll="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

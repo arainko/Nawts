@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_note_edit.view.*
  */
 class EditFragment : Fragment(), View.OnClickListener {
 
-    private val args: NoteEditFragmentArgs by navArgs()
+    private val args: EditFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_note_edit, container, false).apply {
