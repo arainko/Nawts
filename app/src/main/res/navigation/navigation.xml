@@ -13,22 +13,31 @@
         <action
             android:id="@+id/action_mainFragment_to_noteEditFragment"
             app:destination="@id/editingFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:popUpTo="@+id/mainFragment" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_mainFragment_to_customizationFragment"
-            app:destination="@id/customizationFragment" />
+            app:destination="@id/customizationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
         android:id="@+id/editingFragment"
         android:name="com.arainko.nawts.fragments.EditFragment"
         android:label="fragment_note_edit"
-        tools:layout="@layout/fragment_note_edit" >
+        tools:layout="@layout/fragment_note_edit">
         <action
             android:id="@+id/action_noteEditFragment_to_mainFragment"
             app:destination="@id/mainFragment"
-            app:enterAnim="@anim/fragment_fade_enter" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="header"
             app:argType="string" />
@@ -37,8 +46,8 @@
             app:argType="string" />
         <argument
             android:name="databaseId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/customizationFragment"
