@@ -1,42 +1,26 @@
 package com.arainko.nawts.view
 
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.arainko.nawts.fragments.MainFragmentDirections
 import com.arainko.nawts.model.DatabaseActions
+import com.arainko.nawts.persistence.Note
 import kotlinx.android.synthetic.main.note_layout.view.*
 import kotlin.properties.Delegates
 
-class NoteHolder(itemView: View, private val dbActions: DatabaseActions) : RecyclerView.ViewHolder(itemView),
-    View.OnClickListener,
-    View.OnLongClickListener {
+class NoteHolder(itemView: View, val behavior: NoteHolderBehavior) : RecyclerView.ViewHolder(itemView) {
 
-    var noteId: Int by Delegates.notNull()
+    lateinit var note: Note
     val noteContent: TextView = itemView.cardText
     val noteHeader: TextView = itemView.cardHeader
 
     init {
         itemView.apply {
-        setOnClickListener(this@NoteHolder)
-        setOnLongClickListener(this@NoteHolder)
+        setOnClickListener { behavior.onClick(note, this) }
+        setOnLongClickListener { behavior.onLongClick(note, this) }
         }
     }
-
-    override fun onClick(view: View) {
-        val action =
-            MainFragmentDirections.actionMainFragmentToNoteEditFragment(
-                noteHeader.text.toString(),
-                noteContent.text.toString(),
-                noteId
-            )
-        Navigation.findNavController(view).navigate(action)
-    }
-
-    override fun onLongClick(view: View?): Boolean {
-        dbActions.deleteAction(id = noteId)
-        return false
-    }
-
 }

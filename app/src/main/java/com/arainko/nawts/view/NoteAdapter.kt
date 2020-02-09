@@ -1,5 +1,6 @@
 package com.arainko.nawts.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -7,18 +8,19 @@ import com.arainko.nawts.R
 import com.arainko.nawts.model.DatabaseActions
 import com.arainko.nawts.persistence.Note
 
-class NoteAdapter(private val dbActions: DatabaseActions) : ListAdapter<Note, NoteHolder>(NoteDiffUtil) {
+class NoteAdapter(private val noteHolderBehavior: NoteHolderBehavior) : ListAdapter<Note, NoteHolder>(NoteDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.note_layout, parent, false)
-        return NoteHolder(itemView, dbActions)
+        return NoteHolder(itemView, noteHolderBehavior)
     }
 
     override fun onBindViewHolder(holder: NoteHolder, position: Int) {
         val currentNote = getItem(position)
+        holder.note = currentNote
         holder.noteContent.text = currentNote.content
         holder.noteHeader.text = currentNote.header
-        holder.noteId = currentNote.id
+        Log.d("ADAPTER", "Assigning id ${currentNote.id}")
     }
 }
