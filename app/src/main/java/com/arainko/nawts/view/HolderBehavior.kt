@@ -5,6 +5,6 @@ import com.arainko.nawts.model.DatabaseActions
 import com.arainko.nawts.persistence.Note
 
 interface HolderBehavior <T> {
-    val onClick: (T, View) -> Unit
-    val onLongClick: (T, View) -> Boolean
+    fun onHolderClick(holderItem: T, view: View)
+    fun onHolderLongClick(holderItem: T, view: View): Boolean
 }

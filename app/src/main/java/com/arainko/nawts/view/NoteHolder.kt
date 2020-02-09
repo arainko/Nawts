@@ -14,8 +14,8 @@ class NoteHolder(itemView: View, private val behavior: HolderBehavior<Note>) : R
 
     init {
         itemView.apply {
-        setOnClickListener { behavior.onClick(note, this) }
-        setOnLongClickListener { behavior.onLongClick(note, this) }
+        setOnClickListener { behavior.onHolderClick(note, this) }
+        setOnLongClickListener { behavior.onHolderLongClick(note, this) }
         }
     }
 }

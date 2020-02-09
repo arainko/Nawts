@@ -12,8 +12,8 @@ import androidx.navigation.fragment.navArgs
 import com.arainko.nawts.model.NoteViewModel
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.hideKeyboard
-import kotlinx.android.synthetic.main.fragment_note_edit.*
-import kotlinx.android.synthetic.main.fragment_note_edit.view.*
+import kotlinx.android.synthetic.main.fragment_edit.*
+import kotlinx.android.synthetic.main.fragment_edit.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -23,7 +23,7 @@ class EditFragment : Fragment(), View.OnClickListener {
     private val args: EditFragmentArgs by navArgs()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_note_edit, container, false).apply {
+        inflater.inflate(R.layout.fragment_edit, container, false).apply {
             headerField.setText(args.header)
             contentField.setText(args.content)
             fabSave.setOnClickListener(this@EditFragment)

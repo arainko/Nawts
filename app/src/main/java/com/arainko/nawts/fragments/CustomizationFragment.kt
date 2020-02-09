@@ -33,10 +33,13 @@ class CustomizationFragment : Fragment(), HolderBehavior<Note> {
         }
     }
 
-    override val onClick: (Note, View) -> Unit
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-    override val onLongClick: (Note, View) -> Boolean
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+    override fun onHolderClick(holderItem: Note, view: View) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onHolderLongClick(holderItem: Note, view: View): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
 }

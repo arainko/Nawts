@@ -8,28 +8,18 @@
     tools:context=".fragments.MainFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorAccent"
         app:borderWidth="6dp"
         app:srcCompat="@drawable/ic_fab_add"
-        app:layout_anchor="@id/bottom_app_bar"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <com.google.android.material.bottomappbar.BottomAppBar
-        android:id="@+id/bottom_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabAlignmentMode="end"
-        app:hideOnScroll="true"
-        app:menu="@menu/nav_destinations"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
