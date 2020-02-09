@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.R
-import com.arainko.nawts.model.DatabaseActions
 import com.arainko.nawts.persistence.Note
 
-class NoteAdapter(private val noteHolderBehavior: NoteHolderBehavior) : ListAdapter<Note, NoteHolder>(NoteDiffUtil) {
+class NoteAdapter(private val holderBehavior: HolderBehavior<Note>) : ListAdapter<Note, NoteHolder>(NoteDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.note_layout, parent, false)
-        return NoteHolder(itemView, noteHolderBehavior)
+        return NoteHolder(itemView, holderBehavior)
     }
 
     override fun onBindViewHolder(holder: NoteHolder, position: Int) {
