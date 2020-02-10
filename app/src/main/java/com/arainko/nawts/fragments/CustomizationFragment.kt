@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,14 +15,23 @@ import com.arainko.nawts.model.NoteViewModel
 import com.arainko.nawts.persistence.Note
 import com.arainko.nawts.view.HolderBehavior
 import com.arainko.nawts.view.NoteAdapter
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.fragment_customization.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class CustomizationFragment : Fragment(), HolderBehavior<Note> {
+class CustomizationFragment : Fragment(),
+    HolderBehavior<Note> {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private val sheetBehavior by lazy { BottomSheetBehavior.from(bottomSheet) }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val model: NoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
         val adapter = NoteAdapter(this)
         model.notes.observe(this, Observer<List<Note>> { adapter.submitList(it.reversed()) })
@@ -34,7 +44,7 @@ class CustomizationFragment : Fragment(), HolderBehavior<Note> {
     }
 
     override fun onHolderClick(holderItem: Note, view: View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
     override fun onHolderLongClick(holderItem: Note, view: View): Boolean {

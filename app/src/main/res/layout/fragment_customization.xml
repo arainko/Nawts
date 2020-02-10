@@ -12,4 +12,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!--    <fragment-->
+    <!--        android:id="@+id/customizerBottomSheet"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"-->
+    <!--        app:behavior_hideable="true" />-->
+
+    <LinearLayout
+        android:id="@+id/bottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"
+        android:orientation="vertical"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="TEST" />
+
+    </LinearLayout>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

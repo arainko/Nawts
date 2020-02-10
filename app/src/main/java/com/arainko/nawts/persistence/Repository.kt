@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 
 class Repository(application: Application) {
-    private var noteDao: NoteDao
+    private val noteDao: NoteDao
 
     init {
         val db = NoteDatabase.getInstance(application)

@@ -13,16 +13,16 @@ abstract class NoteDatabase : RoomDatabase() {
         private var instance: NoteDatabase? = null
         private val lock = Any()
 
-        fun getInstance(context: Context): NoteDatabase {
-            synchronized(lock) {
+        fun getInstance(context: Context): NoteDatabase = synchronized(lock) {
                 if (instance == null) {
-                    instance = Room.databaseBuilder(context.applicationContext,
-                        NoteDatabase::class.java, "note_database")
-                        .fallbackToDestructiveMigration()
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        NoteDatabase::class.java, "note_database"
+                    ).fallbackToDestructiveMigration()
                         .build()
                 }
                 return instance!!
             }
-        }
     }
+
 }
