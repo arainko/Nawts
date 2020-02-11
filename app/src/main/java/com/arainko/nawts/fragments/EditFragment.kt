@@ -22,8 +22,11 @@ class EditFragment : Fragment(), View.OnClickListener {
 
     private val args: EditFragmentArgs by navArgs()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_edit, container, false).apply {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_edit, container, false).apply {
             headerField.setText(args.header)
             contentField.setText(args.content)
             fabSave.setOnClickListener(this@EditFragment)
@@ -41,7 +44,6 @@ class EditFragment : Fragment(), View.OnClickListener {
             findNavController().navigate(R.id.action_noteEditFragment_to_mainFragment)
         }
     }
-
 
 
 }

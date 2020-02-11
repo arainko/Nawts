@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -36,7 +37,7 @@ class MainFragment : Fragment(),
     HolderBehavior<Note>,
     View.OnClickListener {
 
-    private val model by lazy { ViewModelProvider(this).get(NoteViewModel::class.java) }
+    private val model: NoteViewModel by viewModels()
     private val noteAdapter = NoteAdapter(this)
 
     override fun onCreateView(

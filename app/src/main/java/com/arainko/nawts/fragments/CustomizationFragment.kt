@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,22 +26,24 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 class CustomizationFragment : Fragment(),
     HolderBehavior<Note> {
 
+    private val model: NoteViewModel by viewModels()
     private val sheetBehavior by lazy { BottomSheetBehavior.from(bottomSheet) }
+    private val adapter = NoteAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val model: NoteViewModel = ViewModelProvider(this).get(NoteViewModel::class.java)
-        val adapter = NoteAdapter(this)
-        model.notes.observe(this, Observer<List<Note>> { adapter.submitList(it.reversed()) })
+    ): View? = inflater.inflate(R.layout.fragment_customization, container, false).apply {
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
+        recyclerView.setHasFixedSize(true)
+    }
 
-        return inflater.inflate(R.layout.fragment_customization, container, false).apply {
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.adapter = adapter
-            recyclerView.setHasFixedSize(true)
-        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        model.notes.observe(this, Observer<List<Note>> { adapter.submitList(it.reversed()) })
     }
 
     override fun onHolderClick(holderItem: Note, view: View) {
