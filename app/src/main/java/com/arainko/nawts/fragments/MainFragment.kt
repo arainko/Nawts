@@ -1,6 +1,7 @@
 package com.arainko.nawts.fragments
 
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,6 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.model.NoteViewModel
 import com.arainko.nawts.R
+import com.arainko.nawts.StateManager
+import com.arainko.nawts.extensions.asColor
 import com.arainko.nawts.persistence.Note
 import com.arainko.nawts.view.NoteAdapter
 import com.arainko.nawts.view.HolderBehavior
@@ -33,49 +36,24 @@ import kotlinx.android.synthetic.main.note_layout.view.*
 /**
  * A simple [Fragment] subclass.
  */
-class MainFragment : Fragment(),
-    HolderBehavior<Note>,
-    View.OnClickListener {
+class MainFragment : Fragment() {
 
     private val model: NoteViewModel by viewModels()
-    private val noteAdapter = NoteAdapter(this)
+    private val stateManager by lazy { StateManager(this, model) }
+    private val noteAdapter by lazy { NoteAdapter(stateManager.currentFragmentState) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_main, container, false).apply {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate(R.layout.fragment_main, container, false)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = noteAdapter
             setHasFixedSize(true)
         }
-        model.notes.observe(this@MainFragment,
-            Observer<List<Note>> { noteAdapter.submitList(it.reversed()) })
-        fab.setOnClickListener(this@MainFragment)
+        model.notes.observe(this, Observer { noteAdapter.submitList(it.reversed()) })
+        fab.setOnClickListener(stateManager.currentFragmentState)
     }
-
-    // FAB's onClickListener
-    override fun onClick(v: View?) = findNavController().navigate(
-        MainFragmentDirections.actionMainFragmentToNoteEditFragment("", "")
-    )
-
-    // RecyclerView's ViewHolder onClickListener
-    override fun onHolderClick(holderItem: Note, view: View) {
-        val action =
-            MainFragmentDirections.actionMainFragmentToNoteEditFragment(
-                view.cardHeader.text.toString(),
-                view.cardText.text.toString(),
-                holderItem.id
-            )
-        Navigation.findNavController(view).navigate(action)
-    }
-
-    // RecyclerView's ViewHolder onLongClickListener
-    override fun onHolderLongClick(holderItem: Note, view: View): Boolean {
-        model.deleteAction(id = holderItem.id)
-        return false
-    }
-
 
 }
