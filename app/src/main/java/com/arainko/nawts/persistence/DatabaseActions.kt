@@ -1,4 +1,4 @@
-package com.arainko.nawts.model
+package com.arainko.nawts.persistence
 
 interface DatabaseActions {
     val deleteAction: DatabaseAction

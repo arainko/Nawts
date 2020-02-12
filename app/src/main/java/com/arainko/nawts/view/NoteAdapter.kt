@@ -20,6 +20,5 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<Note>) : ListAdapte
         holder.note = currentNote
         holder.noteContent.text = currentNote.content
         holder.noteHeader.text = currentNote.header
-        Log.d("ADAPTER", "Assigning id ${currentNote.id}")
     }
 }

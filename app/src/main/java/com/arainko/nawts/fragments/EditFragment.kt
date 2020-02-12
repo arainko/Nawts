@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.arainko.nawts.model.NoteViewModel
+import com.arainko.nawts.persistence.NoteViewModel
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.hideKeyboard
 import kotlinx.android.synthetic.main.fragment_edit.*

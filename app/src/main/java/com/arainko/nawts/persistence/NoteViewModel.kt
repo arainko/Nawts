@@ -1,28 +1,45 @@
-package com.arainko.nawts.model
+package com.arainko.nawts.persistence
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.room.Database
-import com.arainko.nawts.persistence.Note
-import com.arainko.nawts.persistence.Repository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class NoteViewModel(application: Application) : AndroidViewModel(application), CoroutineScope, DatabaseActions {
+class NoteViewModel(application: Application) : AndroidViewModel(application), CoroutineScope,
+    DatabaseActions {
     private val repository: Repository = Repository(application)
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
     val notes: LiveData<List<Note>> by lazy { repository.getNotes() }
 
-    override val addAction = DatabaseAction { header, content, _ -> addNote(header, content) }
-    override val updateAction = DatabaseAction { header, content, id -> updateNote(header, content, id) }
-    override val deleteAction = DatabaseAction { _, _, id -> deleteNote("", "", id) }
+    override val addAction =
+        DatabaseAction { header, content, _ ->
+            addNote(
+                header,
+                content
+            )
+        }
+    override val updateAction =
+        DatabaseAction { header, content, id ->
+            updateNote(
+                header,
+                content,
+                id
+            )
+        }
+    override val deleteAction =
+        DatabaseAction { _, _, id ->
+            deleteNote(
+                "",
+                "",
+                id
+            )
+        }
 
     fun addNote(header: String, content: String) {
         launch(coroutineContext) {

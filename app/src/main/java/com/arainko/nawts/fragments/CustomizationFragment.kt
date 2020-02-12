@@ -1,7 +1,6 @@
 package com.arainko.nawts.fragments
 
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,22 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.asColor
-import com.arainko.nawts.model.NoteViewModel
+import com.arainko.nawts.persistence.NoteViewModel
 import com.arainko.nawts.persistence.Note
 import com.arainko.nawts.view.HolderBehavior
 import com.arainko.nawts.view.NoteAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.bottom_sheet_customization.*
-import kotlinx.android.synthetic.main.bottom_sheet_customization.view.*
 import kotlinx.android.synthetic.main.fragment_customization.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
@@ -35,7 +29,7 @@ class CustomizationFragment : Fragment(),
     HolderBehavior<Note> {
 
     private val model: NoteViewModel by viewModels()
-    private val sheetBehavior by lazy { BottomSheetBehavior.from(bottomSheet) }
+    private val sheetBehavior by lazy { BottomSheetBehavior.from(bottomSheet1) }
     private val adapter = NoteAdapter(this)
 
     override fun onCreateView(

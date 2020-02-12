@@ -1,9 +1,8 @@
 package com.arainko.nawts
 
-import android.animation.ValueAnimator
 import android.view.View
 import com.arainko.nawts.fragments.MainFragment
-import com.arainko.nawts.model.NoteViewModel
+import com.arainko.nawts.persistence.NoteViewModel
 import com.arainko.nawts.persistence.Note
 import com.arainko.nawts.view.HolderBehavior
 
