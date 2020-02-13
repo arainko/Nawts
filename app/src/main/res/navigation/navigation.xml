@@ -50,10 +50,8 @@
     <action
         android:id="@+id/action_global_customizationFragment"
         app:destination="@id/customizationFragment"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        app:enterAnim="@anim/fragment_open_enter"
+        app:exitAnim="@anim/fragment_open_exit" />
     <action
         android:id="@+id/action_global_mainFragment"
         app:destination="@id/mainFragment"

@@ -51,10 +51,7 @@ class CustomizationFragment : Fragment() {
         sheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         model.notes.observe(this, Observer { noteAdapter.submitList(it.reversed()) })
 
-        val colors = listOf(
-                "#63b598", "#ce7d78", "#ea9e70", "#a48a9e", "#c6e1e8", "#648177", "#0d5ac1",
-        "#f205e6", "#1c0365", "#14a9ad"
-        )
+        val colors = resources.getStringArray(R.array.colors)
         val buttons = colors.map { hex ->
             layoutInflater.inflate(
                 R.layout.color_button_layout,
