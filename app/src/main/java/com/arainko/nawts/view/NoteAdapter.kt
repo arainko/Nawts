@@ -1,10 +1,10 @@
 package com.arainko.nawts.view
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.R
+import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
 import com.arainko.nawts.persistence.Note
 
 class NoteAdapter(private val holderBehavior: HolderBehavior<Note>) : ListAdapter<Note, NoteHolder>(NoteDiffUtil) {

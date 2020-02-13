@@ -20,7 +20,7 @@
     <!--        app:behavior_hideable="true" />-->
 
    <include layout="@layout/bottom_sheet_customization"
-       android:id="@+id/bottomSheet1" />
+       android:id="@+id/bottomSheet" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

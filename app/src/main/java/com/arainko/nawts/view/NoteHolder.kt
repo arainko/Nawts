@@ -3,6 +3,7 @@ package com.arainko.nawts.view
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
 import com.arainko.nawts.persistence.Note
 import kotlinx.android.synthetic.main.note_layout.view.*
 
