@@ -42,16 +42,6 @@
             android:defaultValue="-1"
             app:argType="integer" />
     </fragment>
-    <fragment
-        android:id="@+id/customizationFragment"
-        android:name="com.arainko.nawts.fragments.CustomizationFragment"
-        android:label="fragment_customization"
-        tools:layout="@layout/fragment_customization" />
-    <action
-        android:id="@+id/action_global_customizationFragment"
-        app:destination="@id/customizationFragment"
-        app:enterAnim="@anim/fragment_open_enter"
-        app:exitAnim="@anim/fragment_open_exit" />
     <action
         android:id="@+id/action_global_mainFragment"
         app:destination="@id/mainFragment"

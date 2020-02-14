@@ -21,4 +21,6 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<Note>) : ListAdapte
         holder.noteContent.text = currentNote.content
         holder.noteHeader.text = currentNote.header
     }
+
+    fun noteAt(position: Int) = getItem(position)
 }
