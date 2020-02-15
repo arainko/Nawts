@@ -37,6 +37,7 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
 
     override fun onHolderLongClick(holderItem: Note, view: View): Boolean {
         fragment.sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        NoteCustomizer.note = holderItem
         return true
     }
 
@@ -50,10 +51,10 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
             val note = fragment.noteAdapter.noteAt(position)
-            model.deleteAction(id = note.id)
+            model.deleteNote(note)
             Snackbar.make(fragment.layoutContainer, "Deleted", Snackbar.LENGTH_LONG).apply {
                 animationMode = Snackbar.ANIMATION_MODE_FADE
-                setAction("Undo") { model.addNote(note.header, note.content) }
+                setAction("Undo") { model.addNote(note) }
             }.show()
         }
     }

@@ -15,6 +15,7 @@ import com.arainko.nawts.extensions.addTo
 import com.arainko.nawts.extensions.asColor
 import com.arainko.nawts.extensions.makeToast
 import com.arainko.nawts.fragments.uiBehaviors.HomeFragmentUIBehavior
+import com.arainko.nawts.fragments.uiBehaviors.NoteCustomizer
 import com.arainko.nawts.view.NoteAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.bottom_sheet_customization.*
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheet).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
+            peekHeight = 300
         }
 
         recyclerView.apply {
@@ -60,7 +62,10 @@ class HomeFragment : Fragment() {
             layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
                 tag = hex
                 setBackgroundColor(hex.asColor())
-                setOnClickListener { (tag as String).makeToast(context) }
+                setOnClickListener {
+                    NoteCustomizer.note.color = tag as String
+                    model.updateNote(NoteCustomizer.note)
+                }
             }.addTo(scrollContainer)
         }
 

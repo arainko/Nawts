@@ -9,53 +9,28 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class NoteViewModel(application: Application) : AndroidViewModel(application), CoroutineScope,
-    DatabaseActions {
+class NoteViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
     private val repository: Repository = Repository(application)
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
     val notes: LiveData<List<Note>> by lazy { repository.getNotes() }
 
-    override val addAction =
-        DatabaseAction { header, content, _ ->
-            addNote(
-                header,
-                content
-            )
-        }
-    override val updateAction =
-        DatabaseAction { header, content, id ->
-            updateNote(
-                header,
-                content,
-                id
-            )
-        }
-    override val deleteAction =
-        DatabaseAction { _, _, id ->
-            deleteNote(
-                "",
-                "",
-                id
-            )
-        }
-
-    fun addNote(header: String, content: String) {
+    fun addNote(note: Note) {
         launch(coroutineContext) {
-            repository.insert(Note(header, content))
+            repository.insert(note)
         }
     }
 
-    fun updateNote(header: String, content: String, id: Int) {
+    fun updateNote(note: Note) {
         launch(coroutineContext) {
-            repository.update(Note(header, content, id))
+            repository.update(note)
         }
     }
 
-    fun deleteNote(header: String, content: String, id: Int) {
+    fun deleteNote(note: Note) {
         launch(coroutineContext) {
-            repository.delete(Note(header, content, id))
+            repository.delete(note)
         }
     }
 
