@@ -14,6 +14,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application), C
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
+
     val notes: LiveData<List<Note>> by lazy { repository.getNotes() }
 
     fun addNote(note: Note) {

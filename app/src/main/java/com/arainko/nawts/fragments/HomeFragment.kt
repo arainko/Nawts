@@ -2,6 +2,7 @@ package com.arainko.nawts.fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,12 +44,21 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         fragmentBehavior = HomeFragmentUIBehavior(this, model)
         noteAdapter = NoteAdapter(fragmentBehavior)
-        model.notes.observe(this, Observer { noteAdapter.submitList(it.reversed()) })
-        fab.setOnClickListener(fragmentBehavior)
+        model.notes.observe(viewLifecycleOwner, Observer { noteAdapter.submitList(it.reversed()) })
+        fab.setOnClickListener(fragmentBehavior.fabOnClickListener)
+
+        resources.getStringArray(R.array.colors).forEach { hex ->
+            layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
+                tag = hex
+                setBackgroundColor(hex.asColor())
+                setOnClickListener(fragmentBehavior.colorOnClickListener)
+            }.addTo(scrollContainer)
+        }
 
         sheetBehavior = BottomSheetBehavior.from(bottomSheet).apply {
             state = BottomSheetBehavior.STATE_HIDDEN
             peekHeight = 300
+            addBottomSheetCallback(fragmentBehavior.bottomSheetCallback)
         }
 
         recyclerView.apply {
@@ -56,18 +66,11 @@ class HomeFragment : Fragment() {
             adapter = noteAdapter
             setHasFixedSize(true)
         }
-        fragmentBehavior.swiper.attachToRecyclerView(recyclerView)
 
-        resources.getStringArray(R.array.colors).map { hex ->
-            layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
-                tag = hex
-                setBackgroundColor(hex.asColor())
-                setOnClickListener {
-                    NoteCustomizer.note.color = tag as String
-                    model.updateNote(NoteCustomizer.note)
-                }
-            }.addTo(scrollContainer)
-        }
+        fragmentBehavior
+            .recyclerViewSwipeToDismissListener
+            .attachToRecyclerView(recyclerView)
+
 
     }
 

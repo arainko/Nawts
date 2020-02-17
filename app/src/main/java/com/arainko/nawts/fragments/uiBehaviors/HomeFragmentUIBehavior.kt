@@ -18,47 +18,68 @@ import kotlinx.android.synthetic.main.note_layout.view.*
 
 class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteViewModel) :
     FragmentUIBehavior<HomeFragment>(fragment),
-    HolderBehavior<Note>,
-    View.OnClickListener {
+    HolderBehavior<Note> {
 
-    override fun onClick(v: View?) = findNavController(fragment).navigate(
-        HomeFragmentDirections.actionMainFragmentToNoteEditFragment("", "")
-    )
+    lateinit var editNote: Note
 
-    override fun onHolderClick(holderItem: Note, view: View) {
-        val action =
-            HomeFragmentDirections.actionMainFragmentToNoteEditFragment(
-                view.cardHeader.text.toString(),
-                view.cardText.text.toString(),
-                holderItem.id
-            )
-        Navigation.findNavController(view).navigate(action)
+    val colorOnClickListener = View.OnClickListener {
+        val note = fragment.bottomSheet.tag as Note
+        note.color = it.tag.toString()
+        model.updateNote(note)
     }
 
+    val fabOnClickListener = View.OnClickListener {
+        findNavController(fragment).navigate(
+            HomeFragmentDirections.actionMainFragmentToNoteEditFragment("", "")
+        )
+    }
+
+    val recyclerViewSwipeToDismissListener: ItemTouchHelper
+        get() {
+            val recyclerViewSwipeCallback =
+                object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+                    override fun onMove(
+                        recyclerView: RecyclerView,
+                        viewHolder: RecyclerView.ViewHolder,
+                        target: RecyclerView.ViewHolder
+                    ): Boolean = false
+
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        val position = viewHolder.adapterPosition
+                        val note = fragment.noteAdapter.noteAt(position)
+                        model.deleteNote(note)
+                        Snackbar.make(fragment.layoutContainer, "Deleted", Snackbar.LENGTH_LONG)
+                            .apply {
+                                animationMode = Snackbar.ANIMATION_MODE_FADE
+                                setAction("Undo") { model.addNote(note) }
+                            }.show()
+                    }
+                }
+            return ItemTouchHelper(recyclerViewSwipeCallback)
+        }
+
+    val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+        override fun onSlide(bottomSheet: View, slideOffset: Float) { }
+
+        override fun onStateChanged(bottomSheet: View, newState: Int) =
+            if (newState == BottomSheetBehavior.STATE_HIDDEN) fragment.fab.show() else fragment.fab.hide()
+
+    }
+
+    override fun onHolderClick(holderItem: Note, view: View) = Navigation.findNavController(view).navigate(
+        HomeFragmentDirections.actionMainFragmentToNoteEditFragment(
+            view.cardHeader.text.toString(),
+            view.cardText.text.toString(),
+            holderItem.id
+        )
+    )
+
+
     override fun onHolderLongClick(holderItem: Note, view: View): Boolean {
+        fragment.bottomSheet.tag = holderItem
         fragment.sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-        NoteCustomizer.note = holderItem
         return true
     }
 
-    private val itemTouchHelper = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-        override fun onMove(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder,
-            target: RecyclerView.ViewHolder
-        ): Boolean = false
-
-        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val position = viewHolder.adapterPosition
-            val note = fragment.noteAdapter.noteAt(position)
-            model.deleteNote(note)
-            Snackbar.make(fragment.layoutContainer, "Deleted", Snackbar.LENGTH_LONG).apply {
-                animationMode = Snackbar.ANIMATION_MODE_FADE
-                setAction("Undo") { model.addNote(note) }
-            }.show()
-        }
-    }
-
-    val swiper = ItemTouchHelper(itemTouchHelper)
 
 }
