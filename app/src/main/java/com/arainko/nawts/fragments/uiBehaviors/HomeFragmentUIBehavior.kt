@@ -5,6 +5,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.arainko.nawts.fragments.BottomSheetCustomizerFragment
 import com.arainko.nawts.fragments.HomeFragment
 import com.arainko.nawts.fragments.HomeFragmentDirections
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
@@ -23,9 +24,9 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
     lateinit var editNote: Note
 
     val colorOnClickListener = View.OnClickListener {
-        val note = fragment.bottomSheet.tag as Note
-        note.color = it.tag.toString()
-        model.updateNote(note)
+//        val note = fragment.bottomSheet.tag as Note
+//        note.color = it.tag.toString()
+//        model.updateNote(note)
     }
 
     val fabOnClickListener = View.OnClickListener {
@@ -66,7 +67,7 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
 
     }
 
-    override fun onHolderClick(holderItem: Note, view: View) = Navigation.findNavController(view).navigate(
+    override fun onHolderClick(holderItem: Note, view: View, position: Int) = Navigation.findNavController(view).navigate(
         HomeFragmentDirections.actionMainFragmentToNoteEditFragment(
             view.cardHeader.text.toString(),
             view.cardText.text.toString(),
@@ -75,9 +76,9 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
     )
 
 
-    override fun onHolderLongClick(holderItem: Note, view: View): Boolean {
-        fragment.bottomSheet.tag = holderItem
-        fragment.sheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+    override fun onHolderLongClick(holderItem: Note, view: View, position: Int): Boolean {
+        val bottomSheet = BottomSheetCustomizerFragment(holderItem, model, fragment.noteAdapter, position)
+        bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
         return true
     }
 

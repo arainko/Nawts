@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent" >
 
+    <include layout="@layout/note_layout"
+        android:id="@+id/cardPreview" />
+
     <HorizontalScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"

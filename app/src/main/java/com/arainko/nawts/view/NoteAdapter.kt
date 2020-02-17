@@ -1,10 +1,11 @@
 package com.arainko.nawts.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.R
-import com.arainko.nawts.extensions.asColor
+import com.arainko.nawts.extensions.asIntColor
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
 import com.arainko.nawts.persistence.Note
 import com.google.android.material.card.MaterialCardView
@@ -19,16 +20,13 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<Note>) : ListAdapte
 
     override fun onBindViewHolder(holder: NoteHolder, position: Int) {
         val currentNote = getItem(position)
+        Log.d("ADAPTER", "REBOUND")
         holder.note = currentNote
         holder.noteContent.text = currentNote.content
         holder.noteHeader.text = currentNote.header
         (holder.itemView as MaterialCardView).also {
-            it.setCardBackgroundColor(currentNote.color.asColor())
-            it.strokeColor = "#aaaaaa".asColor()
-            it.strokeWidth = 5
+            it.setCardBackgroundColor(currentNote.color.asIntColor())
         }
-
-
     }
 
     fun noteAt(position: Int): Note = getItem(position)

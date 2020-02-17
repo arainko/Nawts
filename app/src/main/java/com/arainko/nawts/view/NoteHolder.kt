@@ -15,8 +15,8 @@ class NoteHolder(itemView: View, behavior: HolderBehavior<Note>) : RecyclerView.
 
     init {
         itemView.apply {
-        setOnClickListener { behavior.onHolderClick(note, this) }
-        setOnLongClickListener { behavior.onHolderLongClick(note, this) }
+        setOnClickListener { behavior.onHolderClick(note, this, adapterPosition) }
+        setOnLongClickListener { behavior.onHolderLongClick(note, this, adapterPosition) }
         }
     }
 }
