@@ -59,14 +59,6 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
             return ItemTouchHelper(recyclerViewSwipeCallback)
         }
 
-    val bottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
-        override fun onSlide(bottomSheet: View, slideOffset: Float) { }
-
-        override fun onStateChanged(bottomSheet: View, newState: Int) =
-            if (newState == BottomSheetBehavior.STATE_HIDDEN) fragment.fab.show() else fragment.fab.hide()
-
-    }
-
     override fun onHolderClick(holderItem: Note, view: View, position: Int) = Navigation.findNavController(view).navigate(
         HomeFragmentDirections.actionMainFragmentToNoteEditFragment(
             view.cardHeader.text.toString(),

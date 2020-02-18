@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.addTo
 import com.arainko.nawts.extensions.asIntColor
@@ -46,18 +47,28 @@ class BottomSheetCustomizerFragment(
             (this as MaterialCardView).setCardBackgroundColor(currentColor.asIntColor())
         }
 
-        resources.getStringArray(R.array.colors).forEach { hex ->
-            layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
-                tag = hex
-                setBackgroundColor(hex.asIntColor())
-                setOnClickListener {
-                    //                    note.color = it.tag.toString()
-//                    adapter.notifyItemChanged(position)
-                    (cardPreview as MaterialCardView).setCardBackgroundColor(hex.asIntColor())
-                    currentColor = hex
-                }
-            }.addTo(scrollContainer)
-        }
+        val buttonToColorMap = resources.getStringArray(R.array.colors)
+            .map { hexColor ->
+                val button =
+                    layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
+                        setBackgroundColor(hexColor.asIntColor())
+                        setOnClickListener { TODO() }
+                    }
+                Pair(button as Button, hexColor)
+            }.toMap()
+
+//        resources.getStringArray(R.array.colors).forEach { hex ->
+//            layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
+//                tag = hex
+//                setBackgroundColor(hex.asIntColor())
+//                setOnClickListener {
+//                    //                    note.color = it.tag.toString()
+////                    adapter.notifyItemChanged(position)
+//                    (cardPreview as MaterialCardView).setCardBackgroundColor(hex.asIntColor())
+//                    currentColor = hex
+//                }
+//            }.addTo(scrollContainer)
+//        }
 
     }
 
