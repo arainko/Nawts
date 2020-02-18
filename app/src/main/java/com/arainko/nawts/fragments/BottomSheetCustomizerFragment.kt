@@ -13,6 +13,7 @@ import com.arainko.nawts.persistence.Note
 import com.arainko.nawts.persistence.NoteViewModel
 import com.arainko.nawts.view.NoteAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.bottom_sheet_customization.*
 import kotlinx.android.synthetic.main.note_layout.view.*
@@ -25,8 +26,7 @@ class BottomSheetCustomizerFragment(
 ) : BottomSheetDialogFragment() {
 
     private lateinit var currentColor: String
-    private lateinit var previewHeader: String
-    private lateinit var previewContent: String
+    private lateinit var colorToButtonMap: Map<String, MaterialButton>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,8 +38,8 @@ class BottomSheetCustomizerFragment(
         super.onViewCreated(view, savedInstanceState)
 
         currentColor = note.color
-        previewHeader = note.header.removeTrailingLines()
-        previewContent = note.content.removeTrailingLines()
+        val previewHeader = note.header.removeTrailingLines()
+        val previewContent = note.content.removeTrailingLines()
 
         cardPreview.apply {
             cardHeader.text = previewHeader
@@ -47,28 +47,21 @@ class BottomSheetCustomizerFragment(
             (this as MaterialCardView).setCardBackgroundColor(currentColor.asIntColor())
         }
 
-        val buttonToColorMap = resources.getStringArray(R.array.colors)
-            .map { hexColor ->
-                val button =
-                    layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
-                        setBackgroundColor(hexColor.asIntColor())
-                        setOnClickListener { TODO() }
-                    }
-                Pair(button as Button, hexColor)
-            }.toMap()
+        colorToButtonMap = resources.getStringArray(R.array.colors).map { hexColor ->
+            hexColor to layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
+                addTo(scrollContainer)
+                setBackgroundColor(hexColor.asIntColor())
+                setOnClickListener {
+                    updateButtonIcons(currentColor, hexColor)
+                    (cardPreview as MaterialCardView).setCardBackgroundColor(hexColor.asIntColor())
+                    currentColor = hexColor
+                }
+            } as MaterialButton
+        }.toMap()
 
-//        resources.getStringArray(R.array.colors).forEach { hex ->
-//            layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
-//                tag = hex
-//                setBackgroundColor(hex.asIntColor())
-//                setOnClickListener {
-//                    //                    note.color = it.tag.toString()
-////                    adapter.notifyItemChanged(position)
-//                    (cardPreview as MaterialCardView).setCardBackgroundColor(hex.asIntColor())
-//                    currentColor = hex
-//                }
-//            }.addTo(scrollContainer)
-//        }
+        val checkmarkDrawable = resources.getDrawable(R.drawable.ic_color_check, null)
+
+        colorToButtonMap[currentColor]?.icon = checkmarkDrawable
 
     }
 
@@ -77,6 +70,11 @@ class BottomSheetCustomizerFragment(
         note.color = currentColor
         adapter.notifyItemChanged(position)
         model.updateNote(note)
+    }
+
+    private fun updateButtonIcons(oldColor: String, newColor: String) {
+        colorToButtonMap[oldColor]?.strokeWidth = 0
+        colorToButtonMap[newColor]?.strokeWidth = 10
     }
 
 }
