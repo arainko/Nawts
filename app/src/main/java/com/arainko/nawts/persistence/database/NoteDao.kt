@@ -1,7 +1,8 @@
-package com.arainko.nawts.persistence
+package com.arainko.nawts.persistence.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.arainko.nawts.persistence.entities.Note
 
 @Dao
 interface NoteDao {

@@ -1,8 +1,9 @@
-package com.arainko.nawts.persistence
+package com.arainko.nawts.persistence.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import com.arainko.nawts.persistence.entities.Note
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -10,7 +11,8 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class NoteViewModel(application: Application) : AndroidViewModel(application), CoroutineScope {
-    private val repository: Repository = Repository(application)
+    private val repository: Repository =
+        Repository(application)
     private val job = Job()
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO

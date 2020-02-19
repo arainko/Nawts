@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.asIntColor
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
-import com.arainko.nawts.persistence.Note
+import com.arainko.nawts.persistence.entities.Note
 import com.google.android.material.card.MaterialCardView
 
 class NoteAdapter(private val holderBehavior: HolderBehavior<Note>) : ListAdapter<Note, NoteHolder>(NoteDiffUtil) {
@@ -25,7 +25,7 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<Note>) : ListAdapte
         holder.noteContent.text = currentNote.content
         holder.noteHeader.text = currentNote.header
         (holder.itemView as MaterialCardView).also {
-            it.setCardBackgroundColor(currentNote.color.asIntColor())
+            it.setCardBackgroundColor(currentNote.style.backgroundColor.asIntColor())
         }
     }
 

@@ -1,4 +1,4 @@
-package com.arainko.nawts.persistence
+package com.arainko.nawts.persistence.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
@@ -13,8 +13,11 @@ data class Note(
     @ColumnInfo(name = "content")
     var content: String,
 
-    @ColumnInfo(name = "color")
-    var color: String = "#ffffff",
+    @Embedded
+    var style: NoteStyle = NoteStyle(
+        "#ffffff",
+        "#ffffff"
+    ),
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

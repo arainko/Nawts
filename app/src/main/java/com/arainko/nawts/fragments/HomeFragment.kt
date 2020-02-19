@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.arainko.nawts.persistence.NoteViewModel
+import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import com.arainko.nawts.R
 import com.arainko.nawts.fragments.uiBehaviors.HomeFragmentUIBehavior
 import com.arainko.nawts.view.NoteAdapter

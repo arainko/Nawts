@@ -1,7 +1,7 @@
 package com.arainko.nawts.view
 
 import androidx.recyclerview.widget.DiffUtil
-import com.arainko.nawts.persistence.Note
+import com.arainko.nawts.persistence.entities.Note
 
 object NoteDiffUtil: DiffUtil.ItemCallback<Note>() {
     override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean = oldItem.id == newItem.id

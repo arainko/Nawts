@@ -1,11 +1,12 @@
-package com.arainko.nawts.persistence
+package com.arainko.nawts.persistence.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.arainko.nawts.persistence.entities.Note
 
-@Database(entities = [Note::class], version = 6, exportSchema = false)
+@Database(entities = [Note::class], version = 7, exportSchema = false)
 abstract class NoteDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
 
@@ -13,7 +14,9 @@ abstract class NoteDatabase : RoomDatabase() {
         private var instance: NoteDatabase? = null
         private val lock = Any()
 
-        fun getInstance(context: Context): NoteDatabase = synchronized(lock) {
+        fun getInstance(context: Context): NoteDatabase = synchronized(
+            lock
+        ) {
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,

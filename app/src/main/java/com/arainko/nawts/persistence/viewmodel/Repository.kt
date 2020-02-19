@@ -1,7 +1,10 @@
-package com.arainko.nawts.persistence
+package com.arainko.nawts.persistence.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import com.arainko.nawts.persistence.database.NoteDao
+import com.arainko.nawts.persistence.database.NoteDatabase
+import com.arainko.nawts.persistence.entities.Note
 
 class Repository(application: Application) {
     private val noteDao: NoteDao

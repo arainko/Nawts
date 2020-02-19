@@ -10,9 +10,8 @@ import com.arainko.nawts.fragments.HomeFragment
 import com.arainko.nawts.fragments.HomeFragmentDirections
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
-import com.arainko.nawts.persistence.NoteViewModel
-import com.arainko.nawts.persistence.Note
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.arainko.nawts.persistence.viewmodel.NoteViewModel
+import com.arainko.nawts.persistence.entities.Note
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.note_layout.view.*
@@ -20,14 +19,6 @@ import kotlinx.android.synthetic.main.note_layout.view.*
 class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteViewModel) :
     FragmentUIBehavior<HomeFragment>(fragment),
     HolderBehavior<Note> {
-
-    lateinit var editNote: Note
-
-    val colorOnClickListener = View.OnClickListener {
-//        val note = fragment.bottomSheet.tag as Note
-//        note.color = it.tag.toString()
-//        model.updateNote(note)
-    }
 
     val fabOnClickListener = View.OnClickListener {
         findNavController(fragment).navigate(
@@ -69,7 +60,7 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
 
 
     override fun onHolderLongClick(holderItem: Note, view: View, position: Int): Boolean {
-        val bottomSheet = BottomSheetCustomizerFragment(holderItem, model, fragment.noteAdapter, position)
+        val bottomSheet = BottomSheetCustomizerFragment(holderItem, fragment.noteAdapter, position)
         bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
         return true
     }

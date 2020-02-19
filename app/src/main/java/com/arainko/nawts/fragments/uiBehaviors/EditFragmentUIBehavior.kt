@@ -1,16 +1,14 @@
 package com.arainko.nawts.fragments.uiBehaviors
 
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.findNavController
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.hideKeyboard
 import com.arainko.nawts.fragments.EditFragment
 import com.arainko.nawts.fragments.EditFragmentArgs
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
-import com.arainko.nawts.persistence.Note
-import com.arainko.nawts.persistence.NoteViewModel
+import com.arainko.nawts.persistence.entities.Note
+import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import kotlinx.android.synthetic.main.fragment_edit.*
 
 class EditFragmentUIBehavior(
@@ -24,8 +22,19 @@ class EditFragmentUIBehavior(
         val header = fragment.headerField.text.toString()
         val content = fragment.contentField.text.toString()
         val id = args.databaseId
-        if (id != -1) model.updateNote(Note(header, content, id = id))
-            else model.addNote(Note(header, content))
+        if (id != -1) model.updateNote(
+            Note(
+                header,
+                content,
+                id = id
+            )
+        )
+            else model.addNote(
+            Note(
+                header,
+                content
+            )
+        )
         this.run {
             fragment.headerField.hideKeyboard()
             fragment.contentField.hideKeyboard()
