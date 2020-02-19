@@ -48,7 +48,12 @@ class BottomSheetCustomizerFragment(
         }
 
         colorToButtonMap = resources.getStringArray(R.array.colors).map { hexColor ->
-            hexColor to layoutInflater.inflate(R.layout.color_button_layout, scrollContainer, false).apply {
+            hexColor to layoutInflater
+                .inflate(R.layout.color_button_layout, scrollContainer, false) as MaterialButton
+        }.toMap()
+
+        colorToButtonMap.forEach { (hexColor, button) ->
+            button.run {
                 addTo(scrollContainer)
                 setBackgroundColor(hexColor.asIntColor())
                 setOnClickListener {
@@ -56,8 +61,8 @@ class BottomSheetCustomizerFragment(
                     (cardPreview as MaterialCardView).setCardBackgroundColor(hexColor.asIntColor())
                     currentColor = hexColor
                 }
-            } as MaterialButton
-        }.toMap()
+            }
+        }
 
         val checkmarkDrawable = resources.getDrawable(R.drawable.ic_color_check, null)
 
