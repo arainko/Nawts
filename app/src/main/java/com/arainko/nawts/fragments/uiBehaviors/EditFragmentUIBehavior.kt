@@ -8,6 +8,7 @@ import com.arainko.nawts.fragments.EditFragment
 import com.arainko.nawts.fragments.EditFragmentArgs
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
 import com.arainko.nawts.persistence.entities.Note
+import com.arainko.nawts.persistence.entities.NoteStyle
 import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import kotlinx.android.synthetic.main.fragment_edit.*
 
@@ -19,26 +20,13 @@ class EditFragmentUIBehavior(
     View.OnClickListener {
 
     override fun onClick(view: View?) {
-        val header = fragment.headerField.text.toString()
-        val content = fragment.contentField.text.toString()
-        val id = args.databaseId
-        if (id != -1) model.updateNote(
-            Note(
-                header,
-                content,
-                id = id
-            )
-        )
-            else model.addNote(
-            Note(
-                header,
-                content
-            )
-        )
-        this.run {
-            fragment.headerField.hideKeyboard()
-            fragment.contentField.hideKeyboard()
-            findNavController(fragment).navigate(R.id.action_noteEditFragment_to_mainFragment)
+        val note = args.note.apply {
+            header = fragment.headerField.text.toString()
+            content = fragment.contentField.text.toString()
         }
+        if (note.id != 0) model.updateNote(note) else model.addNote(note)
+        fragment.headerField.hideKeyboard()
+        fragment.contentField.hideKeyboard()
+        findNavController(fragment).navigate(R.id.action_global_mainFragment)
     }
 }

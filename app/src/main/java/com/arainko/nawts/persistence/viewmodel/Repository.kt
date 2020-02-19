@@ -21,4 +21,5 @@ class Repository(application: Application) {
     suspend fun delete(note: Note) = noteDao.delete(note)
 
     suspend fun update(note: Note) = noteDao.update(note)
+
 }

@@ -22,7 +22,7 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
 
     val fabOnClickListener = View.OnClickListener {
         findNavController(fragment).navigate(
-            HomeFragmentDirections.actionMainFragmentToNoteEditFragment("", "")
+            HomeFragmentDirections.actionToEditingFragment(Note("", ""))
         )
     }
 
@@ -51,11 +51,7 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
         }
 
     override fun onHolderClick(holderItem: Note, view: View, position: Int) = Navigation.findNavController(view).navigate(
-        HomeFragmentDirections.actionMainFragmentToNoteEditFragment(
-            view.cardHeader.text.toString(),
-            view.cardText.text.toString(),
-            holderItem.id
-        )
+        HomeFragmentDirections.actionToEditingFragment(holderItem)
     )
 
 

@@ -11,12 +11,8 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_mainFragment_to_noteEditFragment"
-            app:destination="@id/editingFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            android:id="@+id/action_to_editingFragment"
+            app:destination="@id/editingFragment" />
     </fragment>
 
     <fragment
@@ -24,23 +20,9 @@
         android:name="com.arainko.nawts.fragments.EditFragment"
         android:label="fragment_note_edit"
         tools:layout="@layout/fragment_edit">
-        <action
-            android:id="@+id/action_noteEditFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
-            android:name="header"
-            app:argType="string" />
-        <argument
-            android:name="content"
-            app:argType="string" />
-        <argument
-            android:name="databaseId"
-            android:defaultValue="-1"
-            app:argType="integer" />
+            android:name="note"
+            app:argType="com.arainko.nawts.persistence.entities.Note" />
     </fragment>
     <action
         android:id="@+id/action_global_mainFragment"

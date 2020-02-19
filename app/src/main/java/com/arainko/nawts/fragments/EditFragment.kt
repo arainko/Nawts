@@ -10,7 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import com.arainko.nawts.R
+import com.arainko.nawts.extensions.asIntColor
 import com.arainko.nawts.fragments.uiBehaviors.EditFragmentUIBehavior
+import com.arainko.nawts.persistence.entities.Note
+import kotlinx.android.synthetic.main.fragment_edit.*
 import kotlinx.android.synthetic.main.fragment_edit.view.*
 
 /**
@@ -30,10 +33,9 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.apply {
-            headerField.setText(args.header)
-            contentField.setText(args.content)
+            editFragmentRootLayout.setBackgroundColor(args.note.style.backgroundColor.asIntColor())
+            headerField.setText(args.note.header)
+            contentField.setText(args.note.content)
             fabSave.setOnClickListener(fragmentBehavior)
-        }
     }
 }
