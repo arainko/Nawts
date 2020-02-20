@@ -11,6 +11,7 @@ import com.arainko.nawts.R
 import com.arainko.nawts.extensions.addTo
 import com.arainko.nawts.extensions.asIntColor
 import com.arainko.nawts.extensions.removeTrailingLines
+import com.arainko.nawts.fragments.uiBehaviors.CustomizerFragmentBehavior
 import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import com.arainko.nawts.view.NoteAdapter
@@ -23,17 +24,19 @@ import kotlin.properties.Delegates
 
 class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
 
-    private lateinit var note: Note
-    private lateinit var adapter: NoteAdapter
-    private var position: Int by Delegates.notNull()
+    lateinit var note: Note
+    lateinit var adapter: NoteAdapter
+    lateinit var fragmentBehavior: CustomizerFragmentBehavior
+    var position: Int by Delegates.notNull()
+    val model: NoteViewModel by viewModels()
 
     constructor(note: Note, adapter: NoteAdapter, position: Int) : this() {
         this.note = note
         this.adapter = adapter
         this.position = position
+        this.fragmentBehavior = CustomizerFragmentBehavior(this)
     }
 
-    private val model: NoteViewModel by viewModels()
     private lateinit var currentBackgroundColor: String
     private lateinit var currentStrokeColor: String
     private lateinit var colorToButtonMap: Map<String, MaterialButton>
