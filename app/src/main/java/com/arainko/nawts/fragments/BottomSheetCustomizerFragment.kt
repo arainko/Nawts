@@ -43,6 +43,7 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment(), PopupMenu.O
         if (!this::note.isInitialized) dismissAllowingStateLoss()
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
