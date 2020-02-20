@@ -42,6 +42,7 @@ class CustomizerFragmentBehavior(
         when(it.itemId) {
             R.id.defaultBackgroundColor -> {
                 updatePreviewBackgroundColor("#ffffff")
+                updateColorButtonStrokes(fragment.colorToButtonMap, currentBackgroundColor, "#ffffff")
                 currentBackgroundColor = "#ffffff"
                 true
             }
