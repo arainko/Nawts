@@ -10,13 +10,12 @@ import com.arainko.nawts.fragments.HomeFragment
 import com.arainko.nawts.fragments.HomeFragmentDirections
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
-import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import com.arainko.nawts.persistence.entities.Note
+import com.arainko.nawts.persistence.viewmodel.ModelActions
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.note_layout.view.*
 
-class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteViewModel) :
+class HomeFragmentUIBehavior(fragment: HomeFragment, private val modelActions: ModelActions) :
     FragmentUIBehavior<HomeFragment>(fragment),
     HolderBehavior<Note> {
 
@@ -39,11 +38,11 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                         val position = viewHolder.adapterPosition
                         val note = fragment.noteAdapter.noteAt(position)
-                        model.deleteNote(note)
+                        modelActions.deleteNote(note)
                         Snackbar.make(fragment.layoutContainer, "Deleted", Snackbar.LENGTH_LONG)
                             .apply {
                                 animationMode = Snackbar.ANIMATION_MODE_FADE
-                                setAction("Undo") { model.addNote(note) }
+                                setAction("Undo") { modelActions.addNote(note) }
                             }.show()
                     }
                 }
@@ -56,7 +55,7 @@ class HomeFragmentUIBehavior(fragment: HomeFragment, private val model: NoteView
 
 
     override fun onHolderLongClick(holderItem: Note, view: View, position: Int): Boolean {
-        val bottomSheet = BottomSheetCustomizerFragment(holderItem, fragment.noteAdapter, position)
+        val bottomSheet = BottomSheetCustomizerFragment(modelActions, holderItem, fragment.noteAdapter, position)
         bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
         return true
     }

@@ -17,7 +17,7 @@ data class Note(
     var content: String,
 
     @Embedded
-    var style: NoteStyle = NoteStyle("#ffffff", "#ffffff"),
+    var style: NoteStyle = NoteStyle("#ffffff", "#00000000"),
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

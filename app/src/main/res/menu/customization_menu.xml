@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/defaultStrokeColor"
-        android:title="Default stroke color" />
+        android:title="Remove outline" />
     <item
         android:id="@+id/defaultBackgroundColor"
-        android:title="Default background color" />
+        android:title="Reset background color" />
 </menu>

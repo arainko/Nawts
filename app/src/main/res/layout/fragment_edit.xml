@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:backgroundTint="@color/colorAccent"
-        app:borderWidth="6dp"
+        app:borderWidth="0dp"
         app:srcCompat="@drawable/ic_fab_save"
         android:layout_margin="16dp"/>
 

@@ -24,7 +24,7 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<Note>) : ListAdapte
         holder.uiNoteHeader.text = currentNote.header
         (holder.itemView as MaterialCardView).run {
             setCardBackgroundColor(currentNote.style.backgroundColor.asIntColor())
-//            strokeColor = currentNote.style.strokeColor.asIntColor()
+            strokeColor = currentNote.style.strokeColor.asIntColor()
         }
     }
 

@@ -10,9 +10,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+
 class NoteViewModel(application: Application) : AndroidViewModel(application),
-    CoroutineScope,
-    ModelActions {
+    CoroutineScope, ModelActions {
 
     private val repository: Repository = Repository(application)
     private val job = Job()

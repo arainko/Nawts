@@ -2,21 +2,21 @@
 <resources>
     <string-array name="colors">
         <item>#ffffff</item>
-        <item>#ffcdd2</item>
-        <item>#f8bbd0</item>
-        <item>#e1bee7</item>
-        <item>#d1c4e9</item>
-        <item>#c5cae9</item>
-        <item>#bbdefb</item>
-        <item>#b3e5fc</item>
-        <item>#b2ebf2</item>
-        <item>#b2dfdb</item>
-        <item>#dcedc8</item>
-        <item>#f0f4c3</item>
-        <item>#fff9c4</item>
-        <item>#ffecb3</item>
-        <item>#ffe0b2</item>
-        <item>#ffccbc</item>
-        <item>#d7ccc8</item>
+        <item>#ff5252</item>
+        <item>#ff4081</item>
+        <item>#e040fb</item>
+        <item>#7c4dff</item>
+        <item>#536dfe</item>
+        <item>#448aff</item>
+        <item>#40c4ff</item>
+        <item>#18ffff</item>
+        <item>#64ffda</item>
+        <item>#69f0ae</item>
+        <item>#b2ff59</item>
+        <item>#eeff41</item>
+        <item>#ffff00</item>
+        <item>#ffd740</item>
+        <item>#ffab40</item>
+        <item>#ff6e40</item>
     </string-array>
 </resources>
