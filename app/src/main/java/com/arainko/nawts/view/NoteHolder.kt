@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.note_layout.view.*
 class NoteHolder(itemView: View, behavior: HolderBehavior<Note>) : RecyclerView.ViewHolder(itemView) {
 
     lateinit var note: Note
-    val noteContent: TextView = itemView.cardText
-    val noteHeader: TextView = itemView.cardHeader
+    val uiNoteContent: TextView = itemView.cardText
+    val uiNoteHeader: TextView = itemView.cardHeader
 
     init {
         itemView.apply {

@@ -1,6 +1,5 @@
 package com.arainko.nawts.view
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -20,12 +19,12 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<Note>) : ListAdapte
 
     override fun onBindViewHolder(holder: NoteHolder, position: Int) {
         val currentNote = getItem(position)
-        Log.d("ADAPTER", "REBOUND")
         holder.note = currentNote
-        holder.noteContent.text = currentNote.content
-        holder.noteHeader.text = currentNote.header
-        (holder.itemView as MaterialCardView).also {
-            it.setCardBackgroundColor(currentNote.style.backgroundColor.asIntColor())
+        holder.uiNoteContent.text = currentNote.content
+        holder.uiNoteHeader.text = currentNote.header
+        (holder.itemView as MaterialCardView).run {
+            setCardBackgroundColor(currentNote.style.backgroundColor.asIntColor())
+//            strokeColor = currentNote.style.strokeColor.asIntColor()
         }
     }
 
