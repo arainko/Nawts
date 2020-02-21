@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pastel_colors">
+        <item>#ffffff</item>
+        <item>#ff8a80</item>
+        <item>#ff80ab</item>
+        <item>#ea80fc</item>
+        <item>#b388ff</item>
+        <item>#8c9eff</item>
+        <item>#82b1ff</item>
+        <item>#80d8ff</item>
+        <item>#84ffff</item>
+        <item>#a7ffeb</item>
+        <item>#b9f6ca</item>
+        <item>#ccff90</item>
+        <item>#f4ff81</item>
+        <item>#ffff8d</item>
+        <item>#ffe57f</item>
+        <item>#ffd180</item>
+        <item>#ff9e80</item>
+    </string-array>
+</resources>

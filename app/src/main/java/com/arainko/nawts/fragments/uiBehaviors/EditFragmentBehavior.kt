@@ -10,7 +10,7 @@ import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
 import com.arainko.nawts.persistence.viewmodel.ModelActions
 import kotlinx.android.synthetic.main.fragment_edit.*
 
-class EditFragmentUIBehavior(
+class EditFragmentBehavior(
     fragment: EditFragment,
     private val modelActions: ModelActions,
     private val args: EditFragmentArgs

@@ -11,7 +11,7 @@ import com.arainko.nawts.persistence.viewmodel.ModelActions
 import com.arainko.nawts.view.NoteAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
-import kotlinx.android.synthetic.main.bottom_sheet_customization.*
+import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
 
 class CustomizerFragmentBehavior(
     fragment: BottomSheetCustomizerFragment,

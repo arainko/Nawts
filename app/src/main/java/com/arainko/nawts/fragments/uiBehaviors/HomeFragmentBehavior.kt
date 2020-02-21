@@ -15,7 +15,7 @@ import com.arainko.nawts.persistence.viewmodel.ModelActions
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragmentUIBehavior(fragment: HomeFragment, private val modelActions: ModelActions) :
+class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: ModelActions) :
     FragmentUIBehavior<HomeFragment>(fragment),
     HolderBehavior<Note> {
 

@@ -9,7 +9,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    app:strokeWidth="2dp"
+    app:strokeWidth="3dp"
     app:strokeColor="@android:color/transparent"
     app:cardCornerRadius="10dp">
 

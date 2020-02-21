@@ -11,10 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.asIntColor
-import com.arainko.nawts.fragments.uiBehaviors.EditFragmentUIBehavior
-import com.arainko.nawts.persistence.entities.Note
+import com.arainko.nawts.fragments.uiBehaviors.EditFragmentBehavior
 import kotlinx.android.synthetic.main.fragment_edit.*
-import kotlinx.android.synthetic.main.fragment_edit.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -23,7 +21,7 @@ class EditFragment : Fragment() {
 
     private val args: EditFragmentArgs by navArgs()
     private val model: NoteViewModel by viewModels()
-    private val fragmentBehavior by lazy { EditFragmentUIBehavior(this, model, args) }
+    private val fragmentBehavior by lazy { EditFragmentBehavior(this, model, args) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

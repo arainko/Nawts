@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import com.arainko.nawts.R
-import com.arainko.nawts.fragments.uiBehaviors.HomeFragmentUIBehavior
+import com.arainko.nawts.fragments.uiBehaviors.HomeFragmentBehavior
 import com.arainko.nawts.view.NoteAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.recyclerView
@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
 
     private val model: NoteViewModel by viewModels()
     lateinit var noteAdapter: NoteAdapter
-    private lateinit var fragmentBehavior: HomeFragmentUIBehavior
+    private lateinit var fragmentBehavior: HomeFragmentBehavior
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fragmentBehavior = HomeFragmentUIBehavior(this, model)
+        fragmentBehavior = HomeFragmentBehavior(this, model)
         noteAdapter = NoteAdapter(fragmentBehavior)
         model.notes.observe(viewLifecycleOwner, Observer {
             noteAdapter.submitList(it.reversed())
