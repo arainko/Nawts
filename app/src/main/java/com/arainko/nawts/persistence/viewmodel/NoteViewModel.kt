@@ -21,6 +21,8 @@ class NoteViewModel(application: Application) : AndroidViewModel(application),
 
     val notes: LiveData<List<Note>> by lazy { repository.getNotes() }
 
+    override fun getNoteById(id: Int): Note? = notes.value?.find { it.id == id }
+
     override fun addNote(note: Note) {
         launch(coroutineContext) {
             repository.insert(note)
