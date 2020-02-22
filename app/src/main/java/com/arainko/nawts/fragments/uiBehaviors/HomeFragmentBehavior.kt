@@ -37,8 +37,8 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Mod
 
 
     override fun onHolderLongClick(holderItem: Note, view: View, position: Int): Boolean {
-//        val bottomSheet = BottomSheetCustomizerFragment(modelActions, holderItem, fragment.noteAdapter, position)
-//        bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
+        val bottomSheet = BottomSheetCustomizerFragment(modelActions, holderItem, fragment.noteAdapter, position)
+        bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
         return true
     }
 
