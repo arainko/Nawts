@@ -7,7 +7,6 @@ import com.arainko.nawts.extensions.hideKeyboard
 import com.arainko.nawts.fragments.EditFragment
 import com.arainko.nawts.fragments.EditFragmentArgs
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
-import com.arainko.nawts.persistence.viewmodel.ModelActions
 import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import kotlinx.android.synthetic.main.fragment_edit.*
 
@@ -24,7 +23,7 @@ class EditFragmentBehavior(
             header = fragment.headerField.text.toString()
             content = fragment.contentField.text.toString()
         }
-        if (note.id != 0) modelActions.updateNote(note) else modelActions.addNote(note.apply { position = newPos})
+        if (note.id != 0) modelActions.updateNote(note) else modelActions.addNote(note.apply { order = newPos})
         fragment.headerField.hideKeyboard()
         fragment.contentField.hideKeyboard()
         findNavController(fragment).navigate(R.id.action_global_mainFragment)

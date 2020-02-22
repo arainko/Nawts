@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.arainko.nawts.extensions.makeToast
-import com.arainko.nawts.fragments.BottomSheetCustomizerFragment
 import com.arainko.nawts.fragments.HomeFragment
 import com.arainko.nawts.persistence.viewmodel.ModelActions
 import com.arainko.nawts.view.NoteAdapter
@@ -18,34 +17,32 @@ class SwipeDragCallback(val fragment: HomeFragment, val modelActions: ModelActio
 
     val callBack = ItemTouchHelper(this)
 
-    var dragFrom = -1
-    var dragTo = -1
-
-
     override fun onMove(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder,
         target: RecyclerView.ViewHolder
     ): Boolean {
-        val draggedPos = viewHolder.adapterPosition
-        val targetPos = target.adapterPosition
-        val dragged = viewHolder as NoteHolder
-        val targetTo = target as NoteHolder
-//        val temp = noteDragged.id
-//        noteDragged.id = noteTarget.id
-//        noteTarget.id = temp
+        val adapter = recyclerView.adapter as NoteAdapter
 
+        val fromPos = viewHolder.adapterPosition
+        val toPos = target.adapterPosition
 
-        val temp = -1
-
-        if (dragFrom == -1) {
-            dragFrom = draggedPos
+        if (fromPos < toPos) {
+            for (i in fromPos downTo toPos) {
+                val order1 = adapter.currentList[i].order
+                val order2 = adapter.currentList[i+1].order
+                adapter.currentList[i].order = order2
+                adapter.currentList[i+1].order = order1
+            }
+        } else {
+            for (i in fromPos .. toPos) {
+                val order1 = adapter.currentList[i].order
+                val order2 = adapter.currentList[i-1].order
+                adapter.currentList[i].order = order2
+                adapter.currentList[i-1].order = order1
+            }
         }
-        dragTo = targetPos
-        dragged.note.position = dragTo
-        targetTo.note.position = dragFrom
-
-        fragment.noteAdapter.notifyItemMoved(draggedPos, targetPos)
+        adapter.notifyItemMoved(fromPos, toPos)
         return false
     }
 
@@ -53,15 +50,10 @@ class SwipeDragCallback(val fragment: HomeFragment, val modelActions: ModelActio
         super.onSelectedChanged(viewHolder, actionState)
         when(actionState) {
             ItemTouchHelper.ACTION_STATE_IDLE -> {
-                if(dragFrom != -1 && dragTo != -1 && dragFrom != dragTo) {
-                    "From $dragFrom to $dragTo".makeToast(fragment.context)
                     fragment.noteAdapter.currentList.forEach {
                         Log.d("UPDATING", it.toString())
                         modelActions.updateNote(it)
                     }
-                }
-                dragFrom = -1
-                dragTo = -1
             }
         }
     }
@@ -78,7 +70,7 @@ class SwipeDragCallback(val fragment: HomeFragment, val modelActions: ModelActio
                 }.show()
         } else {
             val note = (viewHolder as NoteHolder).note
-            "Pos ${note.position}".makeToast(fragment.context, false)
+            "Pos ${note.order}".makeToast(fragment.context, false)
 //            val bottomSheet = BottomSheetCustomizerFragment(modelActions, note, fragment.noteAdapter, viewHolder.adapterPosition)
 //            bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
             fragment.noteAdapter.notifyItemChanged(viewHolder.adapterPosition)
