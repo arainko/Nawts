@@ -6,7 +6,7 @@ import com.arainko.nawts.persistence.entities.Note
 
 @Dao
 interface NoteDao {
-    @Query("SELECT * from notes")
+    @Query("SELECT * FROM notes ORDER BY position DESC")
     fun getNotes(): LiveData<List<Note>>
 
     @Insert

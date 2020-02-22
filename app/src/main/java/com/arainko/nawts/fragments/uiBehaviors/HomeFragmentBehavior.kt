@@ -23,7 +23,7 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Mod
 
     val fabOnClickListener = View.OnClickListener {
         findNavController(fragment).navigate(
-            HomeFragmentDirections.actionToEditingFragment(Note("", ""))
+            HomeFragmentDirections.actionToEditingFragment(Note("", ""), fragment.noteAdapter.itemCount)
         )
     }
 
@@ -32,7 +32,7 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Mod
 
 
     override fun onHolderClick(holderItem: Note, view: View, position: Int) = Navigation.findNavController(view).navigate(
-        HomeFragmentDirections.actionToEditingFragment(holderItem)
+        HomeFragmentDirections.actionToEditingFragment(holderItem, fragment.noteAdapter.itemCount)
     )
 
 

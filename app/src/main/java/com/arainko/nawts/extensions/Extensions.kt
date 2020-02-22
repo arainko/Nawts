@@ -9,7 +9,10 @@ import android.widget.Toast
 
 fun String.asIntColor(): Int = Color.parseColor(this)
 
-fun String.makeToast(context: Context?): Unit = Toast.makeText(context, this, Toast.LENGTH_LONG).show()
+fun String.makeToast(context: Context?, isLong: Boolean = true) {
+    val toastLength = if (isLong) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
+    Toast.makeText(context, this, toastLength).show()
+}
 
 fun String.removeTrailingLines() = if (this.lines().size > 1) this.lines()[0] + "\n..."
     else this.lines()[0]

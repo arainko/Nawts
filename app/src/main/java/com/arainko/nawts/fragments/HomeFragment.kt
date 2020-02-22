@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         fragmentBehavior = HomeFragmentBehavior(this, model)
         noteAdapter = NoteAdapter(fragmentBehavior)
         model.notes.observe(viewLifecycleOwner, Observer {
-            noteAdapter.submitList(it.reversed())
+            noteAdapter.submitList(it)
             Log.d("OBSERVER", "REFRESHSED")
         })
         fab.setOnClickListener(fragmentBehavior.fabOnClickListener)

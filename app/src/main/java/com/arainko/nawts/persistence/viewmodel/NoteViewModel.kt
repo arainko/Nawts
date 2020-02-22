@@ -19,7 +19,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application),
     override val coroutineContext: CoroutineContext
         get() = job + Dispatchers.IO
 
-    val notes: LiveData<List<Note>> by lazy { repository.getNotes() }
+    val notes: LiveData<List<Note>> = repository.getNotes()
 
     override fun getNoteById(id: Int): Note? = notes.value?.find { it.id == id }
 
