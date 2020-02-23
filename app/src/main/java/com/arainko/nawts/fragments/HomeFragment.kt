@@ -35,11 +35,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentBehavior = HomeFragmentBehavior(this, model)
-        noteAdapter = NoteAdapter(fragmentBehavior)
+        noteAdapter = NoteAdapter(fragmentBehavior, fragmentBehavior)
+
         model.notes.observe(viewLifecycleOwner, Observer {
             noteAdapter.submitList(it)
-            Log.d("OBSERVER", "REFRESHSED")
         })
+
         fab.setOnClickListener(fragmentBehavior.fabOnClickListener)
 
         recyclerView.apply {

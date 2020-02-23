@@ -1,6 +1,7 @@
 package com.arainko.nawts.fragments.uiBehaviors
 
 import android.graphics.Canvas
+import android.view.MotionEvent
 import android.view.View
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment.findNavController
@@ -17,9 +18,14 @@ import com.arainko.nawts.persistence.viewmodel.ModelActions
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 
+interface StartDragListener {
+    fun requestDrag(viewHolder: RecyclerView.ViewHolder)
+}
+
 class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: ModelActions) :
     FragmentUIBehavior<HomeFragment>(fragment),
-    HolderBehavior<Note> {
+    HolderBehavior<Note>,
+    StartDragListener {
 
     val fabOnClickListener = View.OnClickListener {
         findNavController(fragment).navigate(
@@ -37,9 +43,13 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Mod
 
 
     override fun onHolderLongClick(holderItem: Note, view: View, position: Int): Boolean {
-//        val bottomSheet = BottomSheetCustomizerFragment(modelActions, holderItem, fragment.noteAdapter, position)
-//        bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
+        val bottomSheet = BottomSheetCustomizerFragment(modelActions, holderItem, fragment.noteAdapter, position)
+        bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
         return true
+    }
+
+    override fun requestDrag(viewHolder: RecyclerView.ViewHolder) {
+        recyclerViewSwipeToDismissListener.startDrag(viewHolder)
     }
 
 

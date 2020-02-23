@@ -13,9 +13,11 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class SwipeDragCallback(val fragment: HomeFragment, val modelActions: ModelActions) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN,
-    ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
+    ItemTouchHelper.RIGHT) {
 
     val callBack = ItemTouchHelper(this)
+
+    override fun isLongPressDragEnabled(): Boolean = false
 
     override fun onMove(
         recyclerView: RecyclerView,
@@ -23,56 +25,27 @@ class SwipeDragCallback(val fragment: HomeFragment, val modelActions: ModelActio
         target: RecyclerView.ViewHolder
     ): Boolean {
         val adapter = recyclerView.adapter as NoteAdapter
-
         val fromPos = viewHolder.adapterPosition
         val toPos = target.adapterPosition
 
-        if (fromPos < toPos) {
-            for (i in fromPos downTo toPos) {
-                val order1 = adapter.currentList[i].order
-                val order2 = adapter.currentList[i+1].order
-                adapter.currentList[i].order = order2
-                adapter.currentList[i+1].order = order1
-            }
-        } else {
-            for (i in fromPos .. toPos) {
-                val order1 = adapter.currentList[i].order
-                val order2 = adapter.currentList[i-1].order
-                adapter.currentList[i].order = order2
-                adapter.currentList[i-1].order = order1
-            }
-        }
         adapter.notifyItemMoved(fromPos, toPos)
         return false
     }
 
-    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-        super.onSelectedChanged(viewHolder, actionState)
-        when(actionState) {
-            ItemTouchHelper.ACTION_STATE_IDLE -> {
-                    fragment.noteAdapter.currentList.forEach {
-                        Log.d("UPDATING", it.toString())
-                        modelActions.updateNote(it)
-                    }
-            }
-        }
+    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int)  {
+        val position = viewHolder.adapterPosition
+        val note = fragment.noteAdapter.noteAt(position)
+        modelActions.deleteNote(note)
+        Snackbar.make(fragment.layoutContainer, "Deleted", Snackbar.LENGTH_LONG)
+            .apply {
+                animationMode = Snackbar.ANIMATION_MODE_FADE
+                setAction("Undo") { modelActions.addNote(note) }
+            }.show()
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) =
-        if (direction == ItemTouchHelper.RIGHT) {
-            val position = viewHolder.adapterPosition
-            val note = fragment.noteAdapter.noteAt(position)
-            modelActions.deleteNote(note)
-            Snackbar.make(fragment.layoutContainer, "Deleted", Snackbar.LENGTH_LONG)
-                .apply {
-                    animationMode = Snackbar.ANIMATION_MODE_FADE
-                    setAction("Undo") { modelActions.addNote(note) }
-                }.show()
-        } else {
-            val note = (viewHolder as NoteHolder).note
-            "Pos ${note.order}".makeToast(fragment.context, false)
-//            val bottomSheet = BottomSheetCustomizerFragment(modelActions, note, fragment.noteAdapter, viewHolder.adapterPosition)
-//            bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
-            fragment.noteAdapter.notifyItemChanged(viewHolder.adapterPosition)
-        }
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        super.clearView(recyclerView, viewHolder)
+        (viewHolder as NoteHolder).note.header.makeToast(fragment.context, false)
+    }
+
 }
