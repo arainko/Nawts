@@ -8,6 +8,7 @@ import com.arainko.nawts.fragments.HomeFragment
 import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.launch
 
 class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN,
@@ -49,10 +50,6 @@ class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
         viewHolder.itemView.alpha = 1f
-        "From $fromPosCache to $toPosCache".makeToast(fragment.context, false)
-//        fragment.noteAdapter.noteAt(fromPosCache).order = toPosCache
-        if (fromPosCache != toPosCache)
-            model.updateNoteOrder(fragment.noteAdapter ,fromPosCache, toPosCache)
         fromPosCache = -1
         toPosCache = -1
     }

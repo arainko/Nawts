@@ -21,7 +21,7 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<Note>, private val 
     override fun onBindViewHolder(holder: NoteHolder, position: Int) {
         val currentNote = getItem(position)
         holder.note = currentNote
-        holder.uiNoteContent.text = currentNote.toString()
+        holder.uiNoteContent.text = currentNote.content
         holder.uiNoteHeader.text = currentNote.header
         (holder.itemView as MaterialCardView).run {
             setCardBackgroundColor(currentNote.style.backgroundColor.asIntColor())

@@ -12,6 +12,7 @@ class Repository(application: Application) {
     init {
         val db = NoteDatabase.getInstance(application)
         noteDao = db.noteDao()
+
     }
 
     fun getNotes(): LiveData<List<Note>> = noteDao.getNotes()

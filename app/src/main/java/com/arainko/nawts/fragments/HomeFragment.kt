@@ -52,8 +52,7 @@ class HomeFragment : Fragment() {
         fragmentBehavior
             .recyclerViewSwipeToDismissListener
             .attachToRecyclerView(recyclerView)
-
-
     }
+
 
 }
