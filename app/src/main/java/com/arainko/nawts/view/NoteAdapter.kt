@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.asIntColor
-import com.arainko.nawts.fragments.uiBehaviors.StartDragListener
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
+import com.arainko.nawts.fragments.uiBehaviors.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import com.google.android.material.card.MaterialCardView
 

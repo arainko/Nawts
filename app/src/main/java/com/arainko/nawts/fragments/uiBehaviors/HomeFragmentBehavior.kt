@@ -13,23 +13,22 @@ import com.arainko.nawts.fragments.HomeFragment
 import com.arainko.nawts.fragments.HomeFragmentDirections
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
 import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
+import com.arainko.nawts.fragments.uiBehaviors.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.persistence.viewmodel.ModelActions
+import com.arainko.nawts.persistence.viewmodel.NoteViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 
-interface StartDragListener {
-    fun requestDrag(viewHolder: RecyclerView.ViewHolder)
-}
 
-class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: ModelActions) :
+class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: NoteViewModel) :
     FragmentUIBehavior<HomeFragment>(fragment),
     HolderBehavior<Note>,
     StartDragListener {
 
     val fabOnClickListener = View.OnClickListener {
         findNavController(fragment).navigate(
-            HomeFragmentDirections.actionToEditingFragment(Note("", ""), fragment.noteAdapter.itemCount)
+            HomeFragmentDirections.actionToEditingFragment(Note("", ""), modelActions.getMaxOrder())
         )
     }
 
@@ -37,9 +36,11 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Mod
         SwipeDragCallback(fragment, modelActions).callBack
 
 
-    override fun onHolderClick(holderItem: Note, view: View, position: Int) = Navigation.findNavController(view).navigate(
-        HomeFragmentDirections.actionToEditingFragment(holderItem, fragment.noteAdapter.itemCount)
-    )
+    override fun onHolderClick(holderItem: Note, view: View, position: Int) =
+        Navigation.findNavController(view).navigate(
+            HomeFragmentDirections.actionToEditingFragment(holderItem, modelActions.getMaxOrder())
+        )
+
 
 
     override fun onHolderLongClick(holderItem: Note, view: View, position: Int): Boolean {

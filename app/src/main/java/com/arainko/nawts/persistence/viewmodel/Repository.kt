@@ -22,4 +22,6 @@ class Repository(application: Application) {
 
     suspend fun update(note: Note) = noteDao.update(note)
 
+    suspend fun update(notes: List<Note>) = noteDao.update(notes)
+
 }
