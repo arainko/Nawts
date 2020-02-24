@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arainko.nawts.extensions.makeToast
 import com.arainko.nawts.fragments.HomeFragment
 import com.arainko.nawts.persistence.viewmodel.NoteViewModel
+import com.arainko.nawts.view.NoteHolder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.launch
 
 class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN,
@@ -23,13 +23,17 @@ class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : 
 
     override fun onMove(
         recyclerView: RecyclerView,
-        viewHolder: RecyclerView.ViewHolder,
-        target: RecyclerView.ViewHolder
+        draggedHolder: RecyclerView.ViewHolder,
+        targetHolder: RecyclerView.ViewHolder
     ): Boolean {
-        if (fromPosCache == -1) fromPosCache = viewHolder.adapterPosition
-        toPosCache = target.adapterPosition
-        recyclerView.adapter?.notifyItemMoved(viewHolder.adapterPosition, toPosCache)
-        return false
+        val draggedNote = (draggedHolder as NoteHolder).note
+        val targetNote = (targetHolder as NoteHolder).note
+
+        val tempOrder = draggedNote.order
+        draggedNote.order = targetNote.order
+        targetNote.order = tempOrder
+        model.updateNotes(listOf(draggedNote, targetNote))
+        return true
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int)  {
@@ -50,8 +54,6 @@ class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
         viewHolder.itemView.alpha = 1f
-        fromPosCache = -1
-        toPosCache = -1
     }
 
 }
