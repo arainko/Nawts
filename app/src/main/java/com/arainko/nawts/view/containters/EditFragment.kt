@@ -1,4 +1,4 @@
-package com.arainko.nawts.fragments
+package com.arainko.nawts.view.containters
 
 
 import android.os.Bundle
@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.arainko.nawts.persistence.viewmodel.NoteViewModel
+import com.arainko.nawts.view.control.NoteViewModel
 import com.arainko.nawts.R
-import com.arainko.nawts.extensions.asIntColor
-import com.arainko.nawts.fragments.uiBehaviors.EditFragmentBehavior
+import com.arainko.nawts.asIntColor
+import com.arainko.nawts.view.control.EditFragmentBehavior
 import kotlinx.android.synthetic.main.fragment_edit.*
 
 /**

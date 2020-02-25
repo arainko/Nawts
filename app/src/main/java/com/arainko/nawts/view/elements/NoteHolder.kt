@@ -1,11 +1,11 @@
-package com.arainko.nawts.view
+package com.arainko.nawts.view.elements
 
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
-import com.arainko.nawts.fragments.uiBehaviors.abstracts.StartDragListener
+import com.arainko.nawts.view.abstracts.HolderBehavior
+import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import kotlinx.android.synthetic.main.note_layout.view.*
 

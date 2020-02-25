@@ -1,7 +1,6 @@
-package com.arainko.nawts.fragments.uiBehaviors.abstracts
+package com.arainko.nawts.view.abstracts
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 
 
 abstract class FragmentUIBehavior <F: Fragment>(

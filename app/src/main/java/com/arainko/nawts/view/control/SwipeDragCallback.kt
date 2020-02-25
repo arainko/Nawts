@@ -1,14 +1,16 @@
-package com.arainko.nawts.fragments.uiBehaviors
+package com.arainko.nawts.view.control
 
+import android.util.Log
+import androidx.lifecycle.Transformations.map
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
 import androidx.recyclerview.widget.RecyclerView
-import com.arainko.nawts.extensions.makeToast
-import com.arainko.nawts.fragments.HomeFragment
-import com.arainko.nawts.persistence.viewmodel.NoteViewModel
-import com.arainko.nawts.view.NoteHolder
+import com.arainko.nawts.view.containters.HomeFragment
+import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.UP or ItemTouchHelper.DOWN,
@@ -45,9 +47,10 @@ class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : 
         x: Int,
         y: Int
     ) {
-        if (fromPosCache == -1) fromPosCache = fromPos
-
-        toPosCache = toPos
+        (viewHolder as NoteHolder).note.order = (target as NoteHolder).note.order
+        target.note.order -= 1
+        Log.d("ONMOVED", "From $fromPos to $toPos")
+        Log.d("ONMOVED", fragment.noteAdapter.currentList.sortedByDescending { it.order }.map { it.header }.toString())
 
         recyclerView.adapter?.notifyItemMoved(fromPos, toPos)
     }
@@ -70,21 +73,31 @@ class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
         viewHolder.itemView.alpha = 1f
-        val currentNotes = fragment.noteAdapter.currentList.sortedByDescending { it.order }
-        if (fromPosCache != -1 && fromPosCache != toPosCache) {
-            currentNotes[fromPosCache].order = currentNotes[toPosCache].order
+        val list = fragment.noteAdapter
+            .currentList
+            .sortedByDescending { it.order }
+            .mapIndexed { index, note -> note.apply { order = index } }
 
-            if (fromPosCache > toPosCache) {
-                for (i: Int in fromPosCache+1..toPosCache) {
-                    currentNotes[i].order -= 1
-                }
-            } else if (fromPosCache < toPosCache) {
-                for (i: Int in fromPosCache-1 downTo toPosCache) {
-                    currentNotes[i].order += 1
-                }
+        Log.d("UPDATING WITH", list.map { "HEADER: ${it.header} ORDER: ${it.order}" }.toString())
+
+        model.updateNote(*list.toTypedArray())
+
+        model.launch {
+            delay(1000)
+            Log.d("AFTER UPDATE", fragment
+                .noteAdapter
+                .currentList
+                .sortedByDescending { it.order }
+                .map { "HEADER: ${it.header} ORDER: ${it.order}" }
+                .toString())
+            delay(1000)
+            repeat(list.size) {
+                fragment.noteAdapter.notifyItemChanged(it-1)
             }
-            model.updateNotes(currentNotes)
         }
+
+
+
         fromPosCache = -1
         toPosCache = -1
     }

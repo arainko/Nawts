@@ -1,4 +1,4 @@
-package com.arainko.nawts.extensions
+package com.arainko.nawts
 
 import android.content.Context
 import android.graphics.Color

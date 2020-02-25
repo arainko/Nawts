@@ -1,21 +1,20 @@
-package com.arainko.nawts.fragments.uiBehaviors
+package com.arainko.nawts.view.control
 
 import android.view.View
 import android.widget.PopupMenu
 import com.arainko.nawts.R
-import com.arainko.nawts.extensions.asIntColor
-import com.arainko.nawts.fragments.BottomSheetCustomizerFragment
-import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
+import com.arainko.nawts.asIntColor
+import com.arainko.nawts.view.containters.BottomSheetCustomizerFragment
+import com.arainko.nawts.view.abstracts.FragmentUIBehavior
 import com.arainko.nawts.persistence.entities.Note
-import com.arainko.nawts.persistence.viewmodel.ModelActions
-import com.arainko.nawts.view.NoteAdapter
+import com.arainko.nawts.view.elements.NoteAdapter
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
 
 class CustomizerFragmentBehavior(
     fragment: BottomSheetCustomizerFragment,
-    private val modelActions: ModelActions,
+    private val modelActions: NoteViewModel,
     internal val note: Note,
     private val adapter: NoteAdapter,
     private val adapterPosition: Int

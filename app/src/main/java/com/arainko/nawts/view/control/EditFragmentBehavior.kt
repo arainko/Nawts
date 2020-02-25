@@ -1,13 +1,12 @@
-package com.arainko.nawts.fragments.uiBehaviors
+package com.arainko.nawts.view.control
 
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.arainko.nawts.R
-import com.arainko.nawts.extensions.hideKeyboard
-import com.arainko.nawts.fragments.EditFragment
-import com.arainko.nawts.fragments.EditFragmentArgs
-import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
-import com.arainko.nawts.persistence.viewmodel.NoteViewModel
+import com.arainko.nawts.hideKeyboard
+import com.arainko.nawts.view.containters.EditFragment
+import com.arainko.nawts.view.abstracts.FragmentUIBehavior
+import com.arainko.nawts.view.containters.EditFragmentArgs
 import kotlinx.android.synthetic.main.fragment_edit.*
 
 class EditFragmentBehavior(

@@ -1,4 +1,4 @@
-package com.arainko.nawts.fragments
+package com.arainko.nawts.view.containters
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

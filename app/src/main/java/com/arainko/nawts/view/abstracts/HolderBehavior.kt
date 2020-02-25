@@ -1,4 +1,4 @@
-package com.arainko.nawts.fragments.uiBehaviors.abstracts
+package com.arainko.nawts.view.abstracts
 
 import android.view.View
 

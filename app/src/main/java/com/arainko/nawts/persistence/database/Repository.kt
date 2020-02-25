@@ -1,4 +1,4 @@
-package com.arainko.nawts.persistence.viewmodel
+package com.arainko.nawts.persistence.database
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -21,8 +21,6 @@ class Repository(application: Application) {
 
     suspend fun delete(note: Note) = noteDao.delete(note)
 
-    suspend fun update(note: Note) = noteDao.update(note)
-
-    suspend fun update(notes: List<Note>) = noteDao.update(notes)
+    suspend fun update(vararg notes: Note) = noteDao.update(*notes)
 
 }

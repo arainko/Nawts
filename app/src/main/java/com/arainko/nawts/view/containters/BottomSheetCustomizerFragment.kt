@@ -1,4 +1,4 @@
-package com.arainko.nawts.fragments
+package com.arainko.nawts.view.containters
 
 import android.content.Context
 import android.os.Bundle
@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arainko.nawts.R
-import com.arainko.nawts.extensions.addTo
-import com.arainko.nawts.extensions.asIntColor
-import com.arainko.nawts.extensions.removeTrailingLines
-import com.arainko.nawts.fragments.uiBehaviors.CustomizerFragmentBehavior
+import com.arainko.nawts.addTo
+import com.arainko.nawts.asIntColor
+import com.arainko.nawts.removeTrailingLines
+import com.arainko.nawts.view.control.CustomizerFragmentBehavior
 import com.arainko.nawts.persistence.entities.Note
-import com.arainko.nawts.persistence.viewmodel.ModelActions
-import com.arainko.nawts.view.NoteAdapter
+import com.arainko.nawts.view.elements.NoteAdapter
+import com.arainko.nawts.view.control.NoteViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -27,7 +27,7 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
     lateinit var colorToButtonMap: Map<String, MaterialButton>
 
     constructor(
-        modelActions: ModelActions,
+        modelActions: NoteViewModel,
         note: Note,
         adapter: NoteAdapter,
         position: Int

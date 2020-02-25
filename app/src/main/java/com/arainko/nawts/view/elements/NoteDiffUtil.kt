@@ -1,4 +1,4 @@
-package com.arainko.nawts.view
+package com.arainko.nawts.view.elements
 
 import androidx.recyclerview.widget.DiffUtil
 import com.arainko.nawts.persistence.entities.Note

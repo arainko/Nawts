@@ -1,24 +1,17 @@
-package com.arainko.nawts.fragments.uiBehaviors
+package com.arainko.nawts.view.control
 
-import android.graphics.Canvas
-import android.view.MotionEvent
 import android.view.View
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.arainko.nawts.extensions.makeToast
-import com.arainko.nawts.fragments.BottomSheetCustomizerFragment
-import com.arainko.nawts.fragments.HomeFragment
-import com.arainko.nawts.fragments.HomeFragmentDirections
-import com.arainko.nawts.fragments.uiBehaviors.abstracts.FragmentUIBehavior
-import com.arainko.nawts.fragments.uiBehaviors.abstracts.HolderBehavior
-import com.arainko.nawts.fragments.uiBehaviors.abstracts.StartDragListener
+import com.arainko.nawts.view.containters.BottomSheetCustomizerFragment
+import com.arainko.nawts.view.containters.HomeFragment
+import com.arainko.nawts.view.abstracts.FragmentUIBehavior
+import com.arainko.nawts.view.abstracts.HolderBehavior
+import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
-import com.arainko.nawts.persistence.viewmodel.ModelActions
-import com.arainko.nawts.persistence.viewmodel.NoteViewModel
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.arainko.nawts.view.containters.HomeFragmentDirections
 
 
 class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: NoteViewModel) :
@@ -44,7 +37,13 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
 
 
     override fun onHolderLongClick(holderItem: Note, view: View, position: Int): Boolean {
-        val bottomSheet = BottomSheetCustomizerFragment(modelActions, holderItem, fragment.noteAdapter, position)
+        val bottomSheet =
+            BottomSheetCustomizerFragment(
+                modelActions,
+                holderItem,
+                fragment.noteAdapter,
+                position
+            )
         bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
         return true
     }
