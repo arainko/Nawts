@@ -22,7 +22,7 @@ class EditFragmentBehavior(
             header = fragment.headerField.text.toString()
             content = fragment.contentField.text.toString()
         }
-        if (note.id != 0) modelActions.updateNote(note) else modelActions.addNote(note.apply { order = newPos})
+        if (note.id != 0) modelActions.updateNote(note) else modelActions.addNote(note.apply { listOrder = newPos})
         fragment.headerField.hideKeyboard()
         fragment.contentField.hideKeyboard()
         findNavController(fragment).navigate(R.id.action_global_mainFragment)

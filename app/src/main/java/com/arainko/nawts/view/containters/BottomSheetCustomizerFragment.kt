@@ -1,10 +1,12 @@
 package com.arainko.nawts.view.containters
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.arainko.nawts.R
 import com.arainko.nawts.addTo
 import com.arainko.nawts.asIntColor
@@ -13,13 +15,14 @@ import com.arainko.nawts.view.control.CustomizerFragmentBehavior
 import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.view.elements.NoteAdapter
 import com.arainko.nawts.view.control.NoteViewModel
+import com.arainko.nawts.view.elements.NoteDiffUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
+import kotlinx.android.synthetic.main.note_layout.*
 import kotlinx.android.synthetic.main.note_layout.view.cardHeader
 import kotlinx.android.synthetic.main.note_layout.view.cardText
-import kotlinx.android.synthetic.main.note_preview_layout.view.*
 
 class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
 
@@ -51,15 +54,15 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
 
         val vibrantColors = resources.getStringArray(R.array.vibrant_colors)
         val pastelColors = resources.getStringArray(R.array.pastel_colors)
+        val checkmarkDrawable = ContextCompat.getDrawable(context!!, R.drawable.ic_color_check)
 
-        cardPreview.run {
+        (cardPreview as MaterialCardView).run {
             cardHeader.text = fragmentBehavior.note.header.removeTrailingLines()
             cardText.text = fragmentBehavior.note.content.removeTrailingLines()
-            cardOverflowButton.setOnClickListener(fragmentBehavior.onOverflowButtonClickListener)
-            (this as MaterialCardView).run {
-                strokeColor = fragmentBehavior.currentStrokeColor.asIntColor()
-                setCardBackgroundColor(fragmentBehavior.currentBackgroundColor.asIntColor())
-            }
+            iconButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_overflow_icon)
+            iconButton.setOnClickListener(fragmentBehavior.onOverflowButtonClickListener)
+            strokeColor = fragmentBehavior.currentStrokeColor.asIntColor()
+            setCardBackgroundColor(fragmentBehavior.currentBackgroundColor.asIntColor())
         }
 
         colorToButtonMap = vibrantColors.union(pastelColors.toList())
@@ -69,7 +72,7 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
                     .inflate(R.layout.color_button_layout, parentContainer, false) as MaterialButton
             }.toMap()
 
-        colorToButtonMap.forEach {  (hexColor, button) ->
+        colorToButtonMap.forEach { (hexColor, button) ->
             button.run {
                 tag = hexColor
                 setBackgroundColor(hexColor.asIntColor())
@@ -83,7 +86,8 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
             materialButton.addTo(parentContainer)
         }
 
-        colorToButtonMap[fragmentBehavior.currentBackgroundColor]?.strokeWidth = 10
+        colorToButtonMap[fragmentBehavior.currentBackgroundColor]?.icon = checkmarkDrawable
+        colorToButtonMap[fragmentBehavior.currentStrokeColor]?.strokeWidth = 10
 
     }
 

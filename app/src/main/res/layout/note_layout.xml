@@ -12,7 +12,7 @@
     android:focusable="true"
     app:strokeWidth="3dp"
     app:strokeColor="@android:color/transparent"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,9 +24,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/dragButton"
+            app:layout_constraintEnd_toStartOf="@+id/iconButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,14 +46,13 @@
             app:layout_constraintTop_toBottomOf="@+id/cardHeader" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/dragButton"
+            android:id="@+id/iconButton"
             style="@style/IconOnlyButton"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:backgroundTint="@android:color/transparent"
-            app:icon="@drawable/ic_drag_handle"
             app:iconTint="@android:color/primary_text_light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

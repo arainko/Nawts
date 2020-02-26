@@ -14,7 +14,8 @@ data class Note(
     @Embedded
     var style: NoteStyle = NoteStyle("#ffffff", "#00000000"),
 
-    var order: Int = 0,
+    @ColumnInfo(name = "list_order")
+    var listOrder: Int = 0,
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

@@ -21,7 +21,7 @@ class NoteHolder(itemView: View, behavior: HolderBehavior<Note>, dragListener: S
         setOnLongClickListener { behavior.onHolderLongClick(note, this, adapterPosition) }
         }
 
-        itemView.dragButton.setOnTouchListener { _, event ->
+        itemView.iconButton.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_DOWN)
                 dragListener.requestDrag(this@NoteHolder)
             false

@@ -2,6 +2,7 @@ package com.arainko.nawts.view.control
 
 import android.view.View
 import android.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import com.arainko.nawts.R
 import com.arainko.nawts.asIntColor
 import com.arainko.nawts.view.containters.BottomSheetCustomizerFragment
@@ -23,15 +24,17 @@ class CustomizerFragmentBehavior(
     internal var currentBackgroundColor: String = note.style.backgroundColor
     internal var currentStrokeColor: String = note.style.strokeColor
 
+
     val onColorButtonClickListener = View.OnClickListener {
         val hexColor = it.tag as String
-        updateColorButtonStrokes(fragment.colorToButtonMap, currentBackgroundColor, hexColor)
+        updateColorButtonIcon(fragment.colorToButtonMap, currentBackgroundColor, hexColor)
         updatePreviewBackgroundColor(hexColor)
         currentBackgroundColor = hexColor
     }
 
     val onColorButtonLongClickListener = View.OnLongClickListener {
         val hexColor = it.tag as String
+        updateColorButtonStrokes(fragment.colorToButtonMap, currentStrokeColor, hexColor)
         updatePreviewStrokeColor(hexColor)
         currentStrokeColor = hexColor
         true
@@ -40,14 +43,17 @@ class CustomizerFragmentBehavior(
     private val onResetCustomizationMenuClickListener = PopupMenu.OnMenuItemClickListener {
         when(it.itemId) {
             R.id.defaultBackgroundColor -> {
-                updatePreviewBackgroundColor("#ffffff")
-                updateColorButtonStrokes(fragment.colorToButtonMap, currentBackgroundColor, "#ffffff")
-                currentBackgroundColor = "#ffffff"
+                val defaultBackgroundHex = "#ffffff"
+                updatePreviewBackgroundColor(defaultBackgroundHex)
+                updateColorButtonIcon(fragment.colorToButtonMap, currentBackgroundColor, defaultBackgroundHex)
+                currentBackgroundColor = defaultBackgroundHex
                 true
             }
             R.id.defaultStrokeColor -> {
-                updatePreviewStrokeColor("#00000000")
-                currentStrokeColor = "#00000000"
+                val defaultStrokeHex = "#00000000"
+                updatePreviewStrokeColor(defaultStrokeHex)
+                updateColorButtonStrokes(fragment.colorToButtonMap, currentStrokeColor, defaultStrokeHex)
+                currentStrokeColor = defaultStrokeHex
                 true
             }
             else -> false
@@ -68,6 +74,16 @@ class CustomizerFragmentBehavior(
     ) {
         colorToButtonMap[oldColor]?.strokeWidth = 0
         colorToButtonMap[newColor]?.strokeWidth = 10
+    }
+
+    private fun updateColorButtonIcon(
+        colorToButtonMap: Map<String, MaterialButton>,
+        oldColor: String,
+        newColor: String
+    ) {
+        val updatedButton = colorToButtonMap[newColor]
+        colorToButtonMap[oldColor]?.icon = null
+        updatedButton?.icon = ContextCompat.getDrawable(updatedButton?.context!!, R.drawable.ic_color_check)
     }
 
     private fun updatePreviewBackgroundColor(hexColor: String) {

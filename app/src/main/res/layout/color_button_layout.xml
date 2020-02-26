@@ -9,7 +9,10 @@
     android:insetTop="0dp"
     android:insetRight="0dp"
     android:insetBottom="0dp"
-    app:iconPadding="10dp"
+    app:iconPadding="0dp"
+    app:iconGravity="textStart"
+    app:iconTint="#494949"
+    app:iconSize="30dp"
     app:strokeColor="#494949"
     app:strokeWidth="0dp"
     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.Button.Rounded" />
