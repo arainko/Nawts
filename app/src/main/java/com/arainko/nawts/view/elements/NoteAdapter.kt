@@ -3,6 +3,7 @@ package com.arainko.nawts.view.elements
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.R
 import com.arainko.nawts.asIntColor
@@ -19,7 +20,10 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<Note>, private val 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.note_layout, parent, false)
-            .apply { iconButton.visibility = View.GONE }
+            .apply {
+                iconButton.visibility = View.VISIBLE
+                iconButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_drag_handle)
+            }
         return NoteHolder(
             itemView,
             holderBehavior,

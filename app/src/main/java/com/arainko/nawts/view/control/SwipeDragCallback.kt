@@ -13,7 +13,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : ItemTouchHelper.SimpleCallback(
-    0,
+    ItemTouchHelper.DOWN or ItemTouchHelper.UP,
     ItemTouchHelper.RIGHT) {
 
     val callBack = ItemTouchHelper(this)
@@ -24,8 +24,15 @@ class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : 
         recyclerView: RecyclerView,
         draggedHolder: RecyclerView.ViewHolder,
         targetHolder: RecyclerView.ViewHolder
-    ): Boolean = false
-
+    ): Boolean {
+        val draggedNote = (draggedHolder as NoteHolder).note
+        val targetNote = (targetHolder as NoteHolder).note
+        val tempOrder = draggedNote.listOrder
+        draggedNote.listOrder = targetNote.listOrder
+        targetNote.listOrder = tempOrder
+        model.updateNote(draggedNote, targetNote)
+        return false
+    }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int)  {
         val position = viewHolder.adapterPosition
@@ -35,6 +42,16 @@ class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : 
             animationMode = Snackbar.ANIMATION_MODE_FADE
             setAction("Undo") { model.addNote(note) }
         }.show()
+    }
+
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        super.onSelectedChanged(viewHolder, actionState)
+        if (actionState == ACTION_STATE_DRAG) viewHolder?.itemView?.alpha = 0.5f
+    }
+
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+        super.clearView(recyclerView, viewHolder)
+        viewHolder.itemView.alpha = 1f
     }
 
 }

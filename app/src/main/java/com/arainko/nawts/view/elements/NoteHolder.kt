@@ -3,7 +3,9 @@ package com.arainko.nawts.view.elements
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.arainko.nawts.R
 import com.arainko.nawts.view.abstracts.HolderBehavior
 import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
