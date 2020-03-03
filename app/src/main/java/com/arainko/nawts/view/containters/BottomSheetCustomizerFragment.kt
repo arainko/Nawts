@@ -1,5 +1,6 @@
 package com.arainko.nawts.view.containters
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -94,6 +95,7 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
     override fun onPause() {
         super.onPause()
         fragmentBehavior.commitNoteChanges()
+        (cardPreview.tag as ValueAnimator).cancel()
     }
 
 }

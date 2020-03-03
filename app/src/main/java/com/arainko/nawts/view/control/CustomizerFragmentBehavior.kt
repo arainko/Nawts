@@ -1,5 +1,7 @@
 package com.arainko.nawts.view.control
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
 import android.view.View
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
@@ -28,8 +30,10 @@ class CustomizerFragmentBehavior(
     val onColorButtonClickListener = View.OnClickListener {
         val hexColor = it.tag as String
         updateColorButtonIcon(fragment.colorToButtonMap, currentBackgroundColor, hexColor)
-        updatePreviewBackgroundColor(hexColor)
+        updatePreviewBackgroundColor(currentBackgroundColor, hexColor)
         currentBackgroundColor = hexColor
+
+
     }
 
     val onColorButtonLongClickListener = View.OnLongClickListener {
@@ -44,7 +48,7 @@ class CustomizerFragmentBehavior(
         when(it.itemId) {
             R.id.defaultBackgroundColor -> {
                 val defaultBackgroundHex = "#ffffff"
-                updatePreviewBackgroundColor(defaultBackgroundHex)
+                updatePreviewBackgroundColor(currentBackgroundColor, defaultBackgroundHex)
                 updateColorButtonIcon(fragment.colorToButtonMap, currentBackgroundColor, defaultBackgroundHex)
                 currentBackgroundColor = defaultBackgroundHex
                 true
@@ -86,9 +90,19 @@ class CustomizerFragmentBehavior(
         updatedButton?.icon = ContextCompat.getDrawable(updatedButton?.context!!, R.drawable.ic_color_check)
     }
 
-    private fun updatePreviewBackgroundColor(hexColor: String) {
-        (fragment.cardPreview as MaterialCardView)
-            .setCardBackgroundColor(hexColor.asIntColor())
+    private fun updatePreviewBackgroundColor(oldColor: String, newColor: String) {
+        val colorFrom = oldColor.asIntColor()
+        val colorTo = newColor.asIntColor()
+        val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo).apply {
+            duration = 300
+            addUpdateListener {
+                (fragment.cardPreview as MaterialCardView).setCardBackgroundColor(it.animatedValue as Int)
+            }
+        }
+
+        fragment.cardPreview.tag = colorAnimator
+
+        colorAnimator.start()
     }
 
     private fun updatePreviewStrokeColor(hexColor: String) {

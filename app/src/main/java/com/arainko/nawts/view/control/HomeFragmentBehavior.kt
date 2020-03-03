@@ -34,8 +34,6 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
             HomeFragmentDirections.actionToEditingFragment(holderItem, modelActions.getMaxOrder())
         )
 
-
-
     override fun onHolderLongClick(holderItem: Note, view: View, position: Int): Boolean {
         val bottomSheet =
             BottomSheetCustomizerFragment(
