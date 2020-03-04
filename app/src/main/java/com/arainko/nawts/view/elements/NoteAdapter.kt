@@ -13,7 +13,7 @@ import com.arainko.nawts.persistence.entities.Note
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.note_layout.view.*
 
-class NoteAdapter(private val holderBehavior: HolderBehavior<Note>, private val dragListener: StartDragListener) : ListAdapter<Note, NoteHolder>(
+class NoteAdapter(private val holderBehavior: HolderBehavior<NoteHolder>, private val dragListener: StartDragListener) : ListAdapter<Note, NoteHolder>(
     NoteDiffUtil
 ) {
 

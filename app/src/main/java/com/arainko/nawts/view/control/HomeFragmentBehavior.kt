@@ -12,11 +12,12 @@ import com.arainko.nawts.view.abstracts.HolderBehavior
 import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.view.containters.HomeFragmentDirections
+import com.arainko.nawts.view.elements.NoteHolder
 
 
 class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: NoteViewModel) :
     FragmentUIBehavior<HomeFragment>(fragment),
-    HolderBehavior<Note>,
+    HolderBehavior<NoteHolder>,
     StartDragListener {
 
     val fabOnClickListener = View.OnClickListener {
@@ -29,18 +30,17 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
         SwipeDragCallback(fragment, modelActions).callBack
 
 
-    override fun onHolderClick(holderItem: Note, view: View, position: Int) =
-        Navigation.findNavController(view).navigate(
-            HomeFragmentDirections.actionToEditingFragment(holderItem, modelActions.getMaxOrder())
+    override fun onHolderClick(holder: NoteHolder) =
+        Navigation.findNavController(holder.itemView).navigate(
+            HomeFragmentDirections.actionToEditingFragment(holder.note, modelActions.getMaxOrder())
         )
 
-    override fun onHolderLongClick(holderItem: Note, view: View, position: Int): Boolean {
+    override fun onHolderLongClick(holder: NoteHolder): Boolean {
         val bottomSheet =
             BottomSheetCustomizerFragment(
                 modelActions,
-                holderItem,
-                fragment.noteAdapter,
-                position
+                holder,
+                fragment.noteAdapter
             )
         bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
         return true

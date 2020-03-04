@@ -11,6 +11,7 @@ import com.arainko.nawts.view.containters.BottomSheetCustomizerFragment
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
 import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.view.elements.NoteAdapter
+import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
@@ -18,11 +19,11 @@ import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
 class CustomizerFragmentBehavior(
     fragment: BottomSheetCustomizerFragment,
     private val modelActions: NoteViewModel,
-    internal val note: Note,
-    private val adapter: NoteAdapter,
-    private val adapterPosition: Int
+    val noteHolder: NoteHolder,
+    val adapter: NoteAdapter
 ) : FragmentUIBehavior<BottomSheetCustomizerFragment>(fragment) {
 
+    val note = noteHolder.note
     internal var currentBackgroundColor: String = note.style.backgroundColor
     internal var currentStrokeColor: String = note.style.strokeColor
 
@@ -113,7 +114,7 @@ class CustomizerFragmentBehavior(
     fun commitNoteChanges() {
         note.style.backgroundColor = currentBackgroundColor
         note.style.strokeColor = currentStrokeColor
-        adapter.notifyItemChanged(adapterPosition)
+        adapter.notifyItemChanged(noteHolder.adapterPosition)
         modelActions.updateNote(note)
     }
 

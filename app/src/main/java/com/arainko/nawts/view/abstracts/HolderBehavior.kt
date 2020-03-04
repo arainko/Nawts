@@ -1,8 +1,9 @@
 package com.arainko.nawts.view.abstracts
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
-interface HolderBehavior <T> {
-    fun onHolderClick(holderItem: T, view: View, position: Int)
-    fun onHolderLongClick(holderItem: T, view: View, position: Int): Boolean
+interface HolderBehavior <T: RecyclerView.ViewHolder> {
+    fun onHolderClick(holder: T)
+    fun onHolderLongClick(holder: T): Boolean
 }

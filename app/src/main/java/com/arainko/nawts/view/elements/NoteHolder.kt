@@ -11,7 +11,7 @@ import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import kotlinx.android.synthetic.main.note_layout.view.*
 
-class NoteHolder(itemView: View, behavior: HolderBehavior<Note>, dragListener: StartDragListener) : RecyclerView.ViewHolder(itemView) {
+class NoteHolder(itemView: View, behavior: HolderBehavior<NoteHolder>, dragListener: StartDragListener) : RecyclerView.ViewHolder(itemView) {
 
     lateinit var note: Note
     val uiNoteContent: TextView = itemView.cardText
@@ -19,8 +19,8 @@ class NoteHolder(itemView: View, behavior: HolderBehavior<Note>, dragListener: S
 
     init {
         itemView.apply {
-        setOnClickListener { behavior.onHolderClick(note, this, adapterPosition) }
-        setOnLongClickListener { behavior.onHolderLongClick(note, this, adapterPosition) }
+        setOnClickListener { behavior.onHolderClick(this@NoteHolder) }
+        setOnLongClickListener { behavior.onHolderLongClick(this@NoteHolder) }
         }
 
         itemView.iconButton.setOnTouchListener { _, event ->

@@ -17,6 +17,7 @@ import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.view.elements.NoteAdapter
 import com.arainko.nawts.view.control.NoteViewModel
 import com.arainko.nawts.view.elements.NoteDiffUtil
+import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
@@ -32,11 +33,10 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
 
     constructor(
         modelActions: NoteViewModel,
-        note: Note,
-        adapter: NoteAdapter,
-        position: Int
+        holder: NoteHolder,
+        adapter: NoteAdapter
     ) : this() {
-        fragmentBehavior = CustomizerFragmentBehavior(this, modelActions, note, adapter, position)
+        fragmentBehavior = CustomizerFragmentBehavior(this, modelActions, holder, adapter)
     }
 
     override fun onAttach(context: Context) {
@@ -95,7 +95,7 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
     override fun onPause() {
         super.onPause()
         fragmentBehavior.commitNoteChanges()
-        (cardPreview.tag as ValueAnimator).cancel()
+        cardPreview.tag?.let { (it as ValueAnimator).cancel() }
     }
 
 }
