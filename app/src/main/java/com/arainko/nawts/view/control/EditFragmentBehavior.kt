@@ -2,6 +2,7 @@ package com.arainko.nawts.view.control
 
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.navOptions
 import com.arainko.nawts.R
 import com.arainko.nawts.hideKeyboard
 import com.arainko.nawts.view.containters.EditFragment
@@ -25,6 +26,16 @@ class EditFragmentBehavior(
         if (note.id != 0) modelActions.updateNote(note) else modelActions.addNote(note.apply { listOrder = newPos})
         fragment.headerField.hideKeyboard()
         fragment.contentField.hideKeyboard()
-        findNavController(fragment).navigate(R.id.action_global_mainFragment)
+
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_down_enter
+                exit = R.anim.slide_down_leave
+                popEnter = R.anim.slide_down_enter
+                popExit = R.anim.slide_down_leave
+            }
+        }
+
+        findNavController(fragment).navigate(R.id.action_global_mainFragment, null, options)
     }
 }

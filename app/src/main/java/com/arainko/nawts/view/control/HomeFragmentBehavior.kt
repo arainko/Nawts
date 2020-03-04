@@ -3,8 +3,10 @@ package com.arainko.nawts.view.control
 import android.view.View
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.arainko.nawts.R
 import com.arainko.nawts.view.containters.BottomSheetCustomizerFragment
 import com.arainko.nawts.view.containters.HomeFragment
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
@@ -21,19 +23,39 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
     StartDragListener {
 
     val fabOnClickListener = View.OnClickListener {
-        findNavController(fragment).navigate(
-            HomeFragmentDirections.actionToEditingFragment(Note("", ""), modelActions.getMaxOrder())
-        )
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_up_enter
+                exit = R.anim.slide_up_leave
+                popEnter = R.anim.slide_down_enter
+                popExit = R.anim.slide_down_leave
+            }
+        }
+
+        val action = HomeFragmentDirections.actionToEditingFragment(Note("", ""), modelActions.getMaxOrder())
+
+        findNavController(fragment).navigate(action, options)
     }
 
     val recyclerViewSwipeToDismissListener: ItemTouchHelper =
         SwipeDragCallback(fragment, modelActions).callBack
 
 
-    override fun onHolderClick(holder: NoteHolder) =
-        Navigation.findNavController(holder.itemView).navigate(
-            HomeFragmentDirections.actionToEditingFragment(holder.note, modelActions.getMaxOrder())
-        )
+    override fun onHolderClick(holder: NoteHolder) {
+        val options = navOptions {
+            anim {
+                enter = R.anim.slide_up_enter
+                exit = R.anim.slide_up_leave
+                popEnter = R.anim.slide_down_enter
+                popExit = R.anim.slide_down_leave
+            }
+        }
+
+        val action = HomeFragmentDirections.actionToEditingFragment(holder.note, modelActions.getMaxOrder())
+
+        Navigation.findNavController(holder.itemView).navigate(action, options)
+    }
+
 
     override fun onHolderLongClick(holder: NoteHolder): Boolean {
         val bottomSheet =
