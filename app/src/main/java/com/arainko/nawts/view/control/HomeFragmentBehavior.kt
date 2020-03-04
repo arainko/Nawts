@@ -25,10 +25,10 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
     val fabOnClickListener = View.OnClickListener {
         val options = navOptions {
             anim {
-                enter = R.anim.slide_up_enter
-                exit = R.anim.slide_up_leave
-                popEnter = R.anim.slide_down_enter
-                popExit = R.anim.slide_down_leave
+                enter = R.anim.slide_in_right
+                exit = R.anim.slide_out_left
+                popEnter = R.anim.slide_in_left
+                popExit = R.anim.slide_out_right
             }
         }
 
@@ -44,10 +44,10 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
     override fun onHolderClick(holder: NoteHolder) {
         val options = navOptions {
             anim {
-                enter = R.anim.slide_up_enter
-                exit = R.anim.slide_up_leave
-                popEnter = R.anim.slide_down_enter
-                popExit = R.anim.slide_down_leave
+                enter = R.anim.slide_in_right
+                exit = R.anim.slide_out_left
+                popEnter = R.anim.slide_in_left
+                popExit = R.anim.slide_out_right
             }
         }
 
