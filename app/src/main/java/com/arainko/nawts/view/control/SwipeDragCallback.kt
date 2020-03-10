@@ -1,7 +1,5 @@
 package com.arainko.nawts.view.control
 
-import android.util.Log
-import androidx.lifecycle.Transformations.map
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
 import androidx.recyclerview.widget.RecyclerView
@@ -9,8 +7,6 @@ import com.arainko.nawts.view.containters.HomeFragment
 import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : ItemTouchHelper.SimpleCallback(
     ItemTouchHelper.DOWN or ItemTouchHelper.UP,
@@ -30,7 +26,7 @@ class SwipeDragCallback(val fragment: HomeFragment, val model: NoteViewModel) : 
         val tempOrder = draggedNote.listOrder
         draggedNote.listOrder = targetNote.listOrder
         targetNote.listOrder = tempOrder
-        model.updateNote(draggedNote, targetNote)
+        model.updateNotes(draggedNote, targetNote)
         return false
     }
 

@@ -31,7 +31,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application),
         }
     }
 
-    fun updateNote(vararg notes: Note) {
+    fun updateNotes(vararg notes: Note) {
         launch(coroutineContext) {
             repository.update(*notes)
         }

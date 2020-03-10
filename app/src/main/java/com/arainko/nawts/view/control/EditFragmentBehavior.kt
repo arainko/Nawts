@@ -2,9 +2,8 @@ package com.arainko.nawts.view.control
 
 import android.view.View
 import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.navOptions
-import com.arainko.nawts.R
 import com.arainko.nawts.hideKeyboard
+import com.arainko.nawts.makeToast
 import com.arainko.nawts.view.containters.EditFragment
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
 import com.arainko.nawts.view.containters.EditFragmentArgs
@@ -23,7 +22,12 @@ class EditFragmentBehavior(
             header = fragment.headerField.text.toString()
             content = fragment.contentField.text.toString()
         }
-        if (note.id != 0) modelActions.updateNote(note) else modelActions.addNote(note.apply { listOrder = newPos})
+
+        if (note.header.isNotEmpty() && note.content.isNotEmpty()) {
+            if (note.id != 0) modelActions.updateNotes(note)
+            else modelActions.addNote(note.apply { listOrder = newPos})
+        } else { "Discarded empty note".makeToast(fragment.context, false) }
+
         fragment.headerField.hideKeyboard()
         fragment.contentField.hideKeyboard()
         fragment.fabSave.hide()

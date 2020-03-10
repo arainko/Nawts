@@ -9,7 +9,6 @@ import com.arainko.nawts.R
 import com.arainko.nawts.asIntColor
 import com.arainko.nawts.view.containters.BottomSheetCustomizerFragment
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
-import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.view.elements.NoteAdapter
 import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.button.MaterialButton
@@ -115,7 +114,7 @@ class CustomizerFragmentBehavior(
         note.style.backgroundColor = currentBackgroundColor
         note.style.strokeColor = currentStrokeColor
         adapter.notifyItemChanged(noteHolder.adapterPosition)
-        modelActions.updateNote(note)
+        modelActions.updateNotes(note)
     }
 
 }
