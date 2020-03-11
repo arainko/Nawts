@@ -2,17 +2,18 @@ package com.arainko.nawts.view.containters
 
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.arainko.nawts.view.control.NoteViewModel
 import com.arainko.nawts.R
 import com.arainko.nawts.asIntColor
+import com.arainko.nawts.makeToast
 import com.arainko.nawts.view.control.EditFragmentBehavior
 import kotlinx.android.synthetic.main.fragment_edit.*
+import kotlinx.android.synthetic.main.fragment_edit.view.*
 
 /**
  * A simple [Fragment] subclass.
@@ -31,9 +32,15 @@ class EditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            editFragmentRootLayout.setBackgroundColor(args.note.style.backgroundColor.asIntColor())
-            headerField.setText(args.note.header)
-            contentField.setText(args.note.content)
-            fabSave.setOnClickListener(fragmentBehavior)
+        editFragmentRootLayout.setBackgroundColor(args.note.style.backgroundColor.asIntColor())
+        headerField.setText(args.note.header)
+        contentField.setText(args.note.content)
+        fabSave.setOnClickListener(fragmentBehavior)
+
+        bottomAppBar.setOnMenuItemClickListener(fragmentBehavior)
+
+        headerField.addTextChangedListener( onTextChanged = { header, _, _, _ ->
+            contentField.setText(header)
+        })
     }
 }

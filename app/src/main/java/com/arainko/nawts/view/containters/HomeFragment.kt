@@ -17,9 +17,7 @@ import com.arainko.nawts.view.elements.NoteAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.recyclerView
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class HomeFragment : Fragment() {
 
     private val model: NoteViewModel by viewModels()

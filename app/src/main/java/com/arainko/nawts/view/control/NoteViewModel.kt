@@ -20,10 +20,11 @@ class NoteViewModel(application: Application) : AndroidViewModel(application),
 
     val notes: LiveData<List<Note>> = repository.getNotes()
 
-    fun getMaxOrder(): Int {
-        val maxOrder = notes.value?.maxBy { it.listOrder }?.listOrder
-        return if (maxOrder == null) 0 else maxOrder+1
-    }
+    val maxOrder: Int
+        get() {
+            val maxOrder = notes.value?.maxBy { it.listOrder }?.listOrder
+            return if (maxOrder == null) 0 else maxOrder + 1
+        }
 
     fun addNote(note: Note) {
         launch(coroutineContext) {

@@ -32,7 +32,7 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
             }
         }
 
-        val action = HomeFragmentDirections.actionToEditingFragment(Note("", ""), modelActions.getMaxOrder())
+        val action = HomeFragmentDirections.actionToEditingFragment(Note("", ""), modelActions.maxOrder)
 
         findNavController(fragment).navigate(action, options)
     }
@@ -51,7 +51,7 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
             }
         }
 
-        val action = HomeFragmentDirections.actionToEditingFragment(holder.note, modelActions.getMaxOrder())
+        val action = HomeFragmentDirections.actionToEditingFragment(holder.note, modelActions.maxOrder)
 
         Navigation.findNavController(holder.itemView).navigate(action, options)
     }
