@@ -57,10 +57,8 @@ class EditFragmentBehavior(
         R.id.bottomBarReminder -> {
             val currentTime = Instant.now().toEpochMilli()
             val inferredDates = Parser()
-                .parse(fragment.contentField.text.toString())
-                ?.get(0)
-                ?.dates
-            val epochTime = if (inferredDates != null) inferredDates[0].time else currentTime
+                .parse(fragment.headerField.text.toString() + fragment.contentField.text.toString())
+            val epochTime = if (inferredDates != null && inferredDates.isNotEmpty()) inferredDates[0].dates[0].time else currentTime
             val calendarIntent = Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, epochTime)
