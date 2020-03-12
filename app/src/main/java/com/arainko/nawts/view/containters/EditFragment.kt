@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.ColorUtils
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -42,7 +43,14 @@ class EditFragment : Fragment() {
         headerField.setText(args.note.header)
         contentField.setText(args.note.content)
         fabSave.setOnClickListener(fragmentBehavior)
-        fabSave.backgroundTintList = ColorStateList.valueOf(Color.BLUE)
+        fabSave.backgroundTintList = ColorStateList.valueOf(
+            args.note.style.backgroundColor.asIntColor()
+                .blendARGB(Color.BLACK, 0.2f)
+                .blendARGB(Color.WHITE, 0.4f)
+        )
+
+        val fabColor = args.note.style.backgroundColor.asIntColor()
+            .blendARGB(Color.WHITE, 0.4f)
 
 
         val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(),
@@ -65,6 +73,13 @@ class EditFragment : Fragment() {
         bottomAppBar.backgroundTint = ColorStateList.valueOf(args.note.style.backgroundColor
             .asIntColor()
             .blendARGB(Color.BLACK, 0.4f))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity!!.window.statusBarColor = args.note.style.backgroundColor
+            .asIntColor()
+            .blendARGB(Color.BLACK, 0.4f)
     }
 
     override fun onPause() {
