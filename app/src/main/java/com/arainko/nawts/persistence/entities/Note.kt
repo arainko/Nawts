@@ -19,4 +19,7 @@ data class Note(
 
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
-) : Parcelable
+) : Parcelable {
+    val transitionName: String
+        get() = "note$id"
+}

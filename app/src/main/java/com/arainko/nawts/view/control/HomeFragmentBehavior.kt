@@ -2,6 +2,7 @@ package com.arainko.nawts.view.control
 
 import android.view.View
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,6 +16,8 @@ import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.view.containters.HomeFragmentDirections
 import com.arainko.nawts.view.elements.NoteHolder
+import com.google.android.material.transition.Hold
+import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: NoteViewModel) :
@@ -23,18 +26,25 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
     StartDragListener {
 
     val fabOnClickListener = View.OnClickListener {
-        val options = navOptions {
-            anim {
-                enter = R.anim.slide_in_right
-                exit = R.anim.slide_out_left
-                popEnter = R.anim.slide_in_left
-                popExit = R.anim.slide_out_right
-            }
-        }
+//        val options = navOptions {
+//            anim {
+//                enter = R.anim.slide_in_right
+//                exit = R.anim.slide_out_left
+//                popEnter = R.anim.slide_in_left
+//                popExit = R.anim.slide_out_right
+//            }
+//        }
 
-        val action = HomeFragmentDirections.actionToEditingFragment(Note("", ""), modelActions.maxOrder)
+        fragment.exitTransition = Hold()
 
-        findNavController(fragment).navigate(action, options)
+        val extras = FragmentNavigatorExtras(
+            fragment.fab to "note_transition_container"
+        )
+
+        val action = HomeFragmentDirections
+            .actionToEditingFragment(Note("", ""), modelActions.maxOrder)
+
+        findNavController(fragment).navigate(action, extras)
     }
 
     val recyclerViewSwipeToDismissListener: ItemTouchHelper =
@@ -42,6 +52,7 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
 
 
     override fun onHolderClick(holder: NoteHolder) {
+        // TODO: SharedElementTransition for holders
         val options = navOptions {
             anim {
                 enter = R.anim.slide_in_right
@@ -51,9 +62,14 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
             }
         }
 
-        val action = HomeFragmentDirections.actionToEditingFragment(holder.note, modelActions.maxOrder)
+//        val extras = FragmentNavigatorExtras(
+//            holder.itemView to holder.note.transitionName
+//        )
 
-        Navigation.findNavController(holder.itemView).navigate(action, options)
+        val action = HomeFragmentDirections
+            .actionToEditingFragment(holder.note, modelActions.maxOrder)
+
+        findNavController(fragment).navigate(action, options)
     }
 
 

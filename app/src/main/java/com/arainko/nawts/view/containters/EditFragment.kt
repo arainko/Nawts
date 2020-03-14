@@ -18,6 +18,7 @@ import com.arainko.nawts.asIntColor
 import com.arainko.nawts.blendARGB
 import com.arainko.nawts.view.control.EditFragmentBehavior
 import com.arainko.nawts.view.control.NoteViewModel
+import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.fragment_edit.*
 
 
@@ -30,6 +31,10 @@ class EditFragment : Fragment() {
     private val model: NoteViewModel by viewModels()
     private val fragmentBehavior by lazy { EditFragmentBehavior(this, model, args) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,17 +58,17 @@ class EditFragment : Fragment() {
             .blendARGB(Color.WHITE, 0.4f)
 
 
-        val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(),
-            activity!!.window.statusBarColor,
-            args.note.style.backgroundColor
-                .asIntColor()
-                .blendARGB(Color.BLACK, 0.4f)).apply {
-            duration = resources.getInteger(R.integer.animationSpeed).toLong()
-            addUpdateListener {
-                activity!!.window.statusBarColor = it.animatedValue as Int
-            }
-        }
-        colorAnimator.start()
+//        val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(),
+//            activity!!.window.statusBarColor,
+//            args.note.style.backgroundColor
+//                .asIntColor()
+//                .blendARGB(Color.BLACK, 0.4f)).apply {
+//            duration = resources.getInteger(R.integer.animationSpeed).toLong()
+//            addUpdateListener {
+//                activity!!.window.statusBarColor = it.animatedValue as Int
+//            }
+//        }
+//        colorAnimator.start()
 
 //        activity!!.window.statusBarColor = args.note.style.backgroundColor
 //            .asIntColor()
@@ -85,18 +90,18 @@ class EditFragment : Fragment() {
     override fun onPause() {
         super.onPause()
 
-        val defaultColor = resources.getColor(R.color.colorAccent, null)
-        // TODO: Make it not so ugly
-        val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(),
-            activity!!.window.statusBarColor,
-            defaultColor
-            ).apply {
-            duration = resources.getInteger(R.integer.animationSpeed).toLong()
-            addUpdateListener {
-                activity!!.window.statusBarColor = it.animatedValue as Int
-            }
-        }
-        colorAnimator.start()
+//        val defaultColor = resources.getColor(R.color.colorAccent, null)
+//        // TODO: Make it not so ugly
+//        val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(),
+//            activity!!.window.statusBarColor,
+//            defaultColor
+//            ).apply {
+//            duration = resources.getInteger(R.integer.animationSpeed).toLong()
+//            addUpdateListener {
+//                activity!!.window.statusBarColor = it.animatedValue as Int
+//            }
+//        }
+//        colorAnimator.start()
 
     }
 

@@ -91,7 +91,7 @@ class CustomizerFragmentBehavior(
     }
 
     private fun updatePreviewBackgroundColor(oldColor: String, newColor: String) {
-        val colorFrom = oldColor.asIntColor()
+        val colorFrom = (fragment.cardPreview as MaterialCardView).cardBackgroundColor.defaultColor
         val colorTo = newColor.asIntColor()
         val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo).apply {
             duration = 300
