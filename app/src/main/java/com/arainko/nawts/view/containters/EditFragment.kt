@@ -33,7 +33,10 @@ class EditFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform(requireContext())
+        setEnterSharedElementCallback(fragmentBehavior.onEnterSharedElementCallback)
+        sharedElementEnterTransition = MaterialContainerTransform(requireContext()).apply {
+            duration = 700
+        }
     }
 
     override fun onCreateView(

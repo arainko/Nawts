@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.SharedElementCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,9 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        exitTransition = Hold().apply {
+            duration = 700
+        }
     }
 
     override fun onCreateView(
@@ -43,6 +47,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         fragmentBehavior = HomeFragmentBehavior(this, model)
         noteAdapter = NoteAdapter(fragmentBehavior, fragmentBehavior)
+        setExitSharedElementCallback(fragmentBehavior.onExitSharedElementCallback)
+        // TODO: Add smooth exit SharedElementTransition
+//        setExitSharedElementCallback(fragmentBehavior.onExitSharedElementCallback)
         fab.backgroundTintList = ColorStateList.valueOf(
             "#FFFFFF".asIntColor()
                 .blendARGB(Color.BLACK, 0.2f)
@@ -66,6 +73,5 @@ class HomeFragment : Fragment() {
 
 
     }
-
 
 }

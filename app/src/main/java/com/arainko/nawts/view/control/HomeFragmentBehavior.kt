@@ -1,6 +1,7 @@
 package com.arainko.nawts.view.control
 
 import android.view.View
+import androidx.core.app.SharedElementCallback
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment.findNavController
@@ -15,6 +16,7 @@ import com.arainko.nawts.view.abstracts.HolderBehavior
 import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.view.containters.HomeFragmentDirections
+import com.arainko.nawts.view.containters.MainActivity
 import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -35,14 +37,14 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
 //            }
 //        }
 
-        fragment.exitTransition = Hold()
-
+        val emptyNote = Note("", "")
+        fragment.fab.transitionName = emptyNote.transitionName
         val extras = FragmentNavigatorExtras(
-            fragment.fab to "note_transition_container"
+            fragment.fab to emptyNote.transitionName
         )
 
         val action = HomeFragmentDirections
-            .actionToEditingFragment(Note("", ""), modelActions.maxOrder)
+            .actionToEditingFragment(emptyNote, modelActions.maxOrder)
 
         findNavController(fragment).navigate(action, extras)
     }
@@ -53,23 +55,24 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
 
     override fun onHolderClick(holder: NoteHolder) {
         // TODO: SharedElementTransition for holders
-        val options = navOptions {
-            anim {
-                enter = R.anim.slide_in_right
-                exit = R.anim.slide_out_left
-                popEnter = R.anim.slide_in_left
-                popExit = R.anim.slide_out_right
-            }
-        }
+        MainActivity.holderPosition = holder.adapterPosition
+//        val options = navOptions {
+//            anim {
+//                enter = R.anim.slide_in_right
+//                exit = R.anim.slide_out_left
+//                popEnter = R.anim.slide_in_left
+//                popExit = R.anim.slide_out_right
+//            }
+//        }
 
-//        val extras = FragmentNavigatorExtras(
-//            holder.itemView to holder.note.transitionName
-//        )
+        val extras = FragmentNavigatorExtras(
+            holder.itemView to holder.itemView.transitionName
+        )
 
         val action = HomeFragmentDirections
             .actionToEditingFragment(holder.note, modelActions.maxOrder)
 
-        findNavController(fragment).navigate(action, options)
+        findNavController(fragment).navigate(action, extras)
     }
 
 
@@ -86,6 +89,23 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val modelActions: Not
 
     override fun requestDrag(viewHolder: RecyclerView.ViewHolder) {
         recyclerViewSwipeToDismissListener.startDrag(viewHolder)
+    }
+
+    val onExitSharedElementCallback = object : SharedElementCallback() {
+
+        override fun onMapSharedElements(
+            names: MutableList<String>?,
+            sharedElements: MutableMap<String, View>?
+        ) {
+            val selectedViewHolder = fragment.recyclerView
+                .findViewHolderForAdapterPosition(MainActivity.holderPosition)
+
+            if (selectedViewHolder?.itemView == null) {
+                return
+            }
+
+            names?.get(0)?.let { sharedElements?.put(it, selectedViewHolder.itemView) }
+        }
     }
 
 
