@@ -37,8 +37,8 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<NoteHolder>, privat
         holder.uiNoteContent.text = currentNote.content
         holder.uiNoteHeader.text = currentNote.header
         (holder.itemView as MaterialCardView).run {
-            setCardBackgroundColor(currentNote.style.backgroundColor.asIntColor())
             transitionName = currentNote.transitionName
+            setCardBackgroundColor(currentNote.style.backgroundColor.asIntColor())
             strokeColor = currentNote.style.strokeColor.asIntColor()
         }
     }

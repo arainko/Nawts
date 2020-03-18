@@ -1,4 +1,4 @@
-package com.arainko.nawts.view.control
+package com.arainko.nawts.view.containters.customizationFragment
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
@@ -7,8 +7,8 @@ import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import com.arainko.nawts.R
 import com.arainko.nawts.asIntColor
-import com.arainko.nawts.view.containters.BottomSheetCustomizerFragment
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
+import com.arainko.nawts.view.NoteViewModel
 import com.arainko.nawts.view.elements.NoteAdapter
 import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.button.MaterialButton

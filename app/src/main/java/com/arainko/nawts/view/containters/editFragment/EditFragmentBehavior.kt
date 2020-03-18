@@ -1,23 +1,19 @@
-package com.arainko.nawts.view.control
+package com.arainko.nawts.view.containters.editFragment
 
 import android.content.Intent
 import android.provider.CalendarContract
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.SharedElementCallback
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.arainko.nawts.R
 import com.arainko.nawts.hideKeyboard
 import com.arainko.nawts.makeToast
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
-import com.arainko.nawts.view.containters.EditFragment
-import com.arainko.nawts.view.containters.EditFragmentArgs
-import com.arainko.nawts.view.containters.MainActivity
+import com.arainko.nawts.view.NoteViewModel
 import com.joestelmach.natty.Parser
 import kotlinx.android.synthetic.main.fragment_edit.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import org.threeten.bp.Instant
 
 
@@ -47,7 +43,6 @@ class EditFragmentBehavior(
 
         fragment.headerField.hideKeyboard()
         fragment.contentField.hideKeyboard()
-        fragment.fabSave.hide()
         findNavController(fragment).navigateUp()
     }
 
@@ -71,15 +66,5 @@ class EditFragmentBehavior(
         }
 
         else -> false
-    }
-
-    val onEnterSharedElementCallback = object : SharedElementCallback() {
-
-        override fun onMapSharedElements(
-            names: MutableList<String>?,
-            sharedElements: MutableMap<String, View>?
-        ) {
-            sharedElements?.put(names?.get(0)!!, fragment.editFragmentRootLayout)
-        }
     }
 }

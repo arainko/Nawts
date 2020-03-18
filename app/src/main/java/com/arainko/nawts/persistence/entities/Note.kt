@@ -22,4 +22,5 @@ data class Note(
 ) : Parcelable {
     val transitionName: String
         get() = "note$id"
+
 }

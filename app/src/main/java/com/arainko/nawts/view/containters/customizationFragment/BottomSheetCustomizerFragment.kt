@@ -1,8 +1,7 @@
-package com.arainko.nawts.view.containters
+package com.arainko.nawts.view.containters.customizationFragment
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +11,8 @@ import com.arainko.nawts.R
 import com.arainko.nawts.addTo
 import com.arainko.nawts.asIntColor
 import com.arainko.nawts.removeTrailingLines
-import com.arainko.nawts.view.control.CustomizerFragmentBehavior
-import com.arainko.nawts.persistence.entities.Note
 import com.arainko.nawts.view.elements.NoteAdapter
-import com.arainko.nawts.view.control.NoteViewModel
-import com.arainko.nawts.view.elements.NoteDiffUtil
+import com.arainko.nawts.view.NoteViewModel
 import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
@@ -36,7 +32,13 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
         holder: NoteHolder,
         adapter: NoteAdapter
     ) : this() {
-        fragmentBehavior = CustomizerFragmentBehavior(this, modelActions, holder, adapter)
+        fragmentBehavior =
+            CustomizerFragmentBehavior(
+                this,
+                modelActions,
+                holder,
+                adapter
+            )
     }
 
     override fun onAttach(context: Context) {

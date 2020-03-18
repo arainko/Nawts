@@ -1,4 +1,4 @@
-package com.arainko.nawts.view.control
+package com.arainko.nawts.view
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
