@@ -1,10 +1,12 @@
 package com.arainko.nawts.view.containters.homeFragment
 
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.arainko.nawts.R
 import com.arainko.nawts.view.containters.customizationFragment.BottomSheetCustomizerFragment
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
 import com.arainko.nawts.view.abstracts.HolderBehavior
@@ -43,7 +45,6 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val model: NoteViewMo
             .actionToEditingFragment(holder.note, model.maxOrder, holder.note.transitionName)
         findNavController(fragment).navigate(action, extras)
     }
-
 
     override fun onHolderLongClick(holder: NoteHolder): Boolean {
         val bottomSheet = BottomSheetCustomizerFragment(model, holder, fragment.noteAdapter)

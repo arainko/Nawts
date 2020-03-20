@@ -32,9 +32,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform(requireContext()).apply {
-            duration = resources.getInteger(R.integer.animationSpeed).toLong()
-        }
         exitTransition = Hold().apply {
             duration = resources.getInteger(R.integer.animationSpeed).toLong()
         }
@@ -54,11 +51,7 @@ class HomeFragment : Fragment() {
 //        fab.startAnimation(fabAnim)
         noteAdapter = NoteAdapter(fragmentBehavior, fragmentBehavior)
 
-        fab.backgroundTintList = ColorStateList.valueOf(
-            "#FFFFFF".asIntColor()
-                .blendARGB(Color.BLACK, 0.2f)
-                .blendARGB(Color.WHITE, 0.4f)
-        )
+//
 
         model.notes.observe(viewLifecycleOwner, Observer {
             noteAdapter.submitList(it)
