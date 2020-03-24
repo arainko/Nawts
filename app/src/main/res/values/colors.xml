@@ -3,5 +3,6 @@
     <color name="colorPrimary">#8e8e8e</color>
     <color name="colorPrimaryDark">#373737</color>
     <color name="colorAccent">#616161</color>
+<!--    <color name="colorSurface">#212121</color>-->
     <color name="colorSurface">#e8eaf6</color>
 </resources>

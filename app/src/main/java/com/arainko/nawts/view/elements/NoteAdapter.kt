@@ -11,6 +11,7 @@ import com.arainko.nawts.view.abstracts.HolderBehavior
 import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import com.google.android.material.card.MaterialCardView
+import kotlinx.android.synthetic.main.fragment_edit.view.*
 import kotlinx.android.synthetic.main.note_layout.view.*
 
 class NoteAdapter(private val holderBehavior: HolderBehavior<NoteHolder>, private val dragListener: StartDragListener) : ListAdapter<Note, NoteHolder>(
@@ -40,6 +41,8 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<NoteHolder>, privat
             transitionName = currentNote.transitionName
             setCardBackgroundColor(currentNote.style.backgroundColor.asIntColor())
             strokeColor = currentNote.style.strokeColor.asIntColor()
+            // TODO: Make the text not overlap with drag handle
+            cardHeader.visibility = if (currentNote.header.isBlank()) View.GONE else View.VISIBLE
         }
     }
 

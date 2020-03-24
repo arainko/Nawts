@@ -1,8 +1,7 @@
 package com.arainko.nawts
 
-import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Test
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -11,7 +10,12 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun dateRegexTest() {
+        val testString = "jazda tirowcy 13/12/1999 ognia"
+        val yearLastRegex = "[0-9]{2}[/][0-9]{2}[/][0-9]{4}".toRegex()
+        val yearFirstRegex = "[0-9]{4}[/][0-9]{2}[/][0-9]{2}".toRegex()
+        assertNull(yearFirstRegex.find(testString))
+        assertNotNull(yearLastRegex.find(testString))
+
     }
 }
