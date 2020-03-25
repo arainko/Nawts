@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.arainko.nawts.R
 import com.arainko.nawts.hideKeyboard
 import com.arainko.nawts.makeToast
+import com.arainko.nawts.view.DateInferer
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
 import com.arainko.nawts.view.NoteViewModel
 import com.joestelmach.natty.Parser
@@ -53,10 +54,7 @@ class EditFragmentBehavior(
         }
 
         R.id.bottomBarReminder -> {
-            val currentTime = Instant.now().toEpochMilli()
-            val inferredDates = Parser()
-                .parse(fragment.headerField.text.toString() + "\n" + fragment.contentField.text.toString())
-            val epochTime = if (inferredDates != null && inferredDates.isNotEmpty()) inferredDates[0].dates[0].time else currentTime
+            val epochTime = DateInferer.inferEpochDate("${fragment.headerField.text}\n${fragment.contentField.text}")
             val calendarIntent = Intent(Intent.ACTION_INSERT)
                 .setData(CalendarContract.Events.CONTENT_URI)
                 .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, epochTime)
