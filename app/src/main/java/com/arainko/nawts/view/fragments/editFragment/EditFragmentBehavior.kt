@@ -1,4 +1,4 @@
-package com.arainko.nawts.view.containters.editFragment
+package com.arainko.nawts.view.fragments.editFragment
 
 import android.content.Intent
 import android.provider.CalendarContract
@@ -12,10 +12,8 @@ import com.arainko.nawts.hideKeyboard
 import com.arainko.nawts.makeToast
 import com.arainko.nawts.view.DateInferer
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
-import com.arainko.nawts.view.NoteViewModel
-import com.joestelmach.natty.Parser
+import com.arainko.nawts.view.viewmodels.NoteViewModel
 import kotlinx.android.synthetic.main.fragment_edit.*
-import org.threeten.bp.Instant
 
 
 class EditFragmentBehavior(

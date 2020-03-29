@@ -1,9 +1,12 @@
 package com.arainko.nawts.view.elements
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.R
 import com.arainko.nawts.asIntColor
@@ -25,11 +28,7 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<NoteHolder>, privat
                 iconButton.visibility = View.VISIBLE
                 iconButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_drag_handle)
             }
-        return NoteHolder(
-            itemView,
-            holderBehavior,
-            dragListener
-        )
+        return NoteHolder(itemView, holderBehavior, dragListener)
     }
 
     override fun onBindViewHolder(holder: NoteHolder, position: Int) {

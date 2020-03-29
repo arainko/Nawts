@@ -1,4 +1,4 @@
-package com.arainko.nawts.view
+package com.arainko.nawts.view.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel

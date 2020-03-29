@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSurface"
-    tools:context=".view.containters.editFragment.EditFragment">
+    tools:context=".view.fragments.editFragment.EditFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -69,7 +69,8 @@
         android:layout_height="wrap_content"
         app:borderWidth="0dp"
         app:layout_anchor="@id/bottomAppBar"
-        app:srcCompat="@drawable/ic_fab_save" />
+        app:srcCompat="@drawable/ic_fab_save"
+        />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"

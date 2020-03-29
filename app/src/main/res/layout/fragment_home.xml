@@ -1,28 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutContainer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorSurface"
-    tools:context=".view.containters.homeFragment.HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:transitionName="fabTransition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:borderWidth="0dp"
-        android:backgroundTint="@color/colorAccent"
-        app:tint="@android:color/white"
-        android:src="@drawable/ic_fab_add"
-        android:layout_margin="16dp"
-        android:layout_gravity="bottom|end"/>
+    <data>
+        <variable name="viewmodel"
+            type="com.arainko.nawts.view.viewmodels.HomeViewModel" />
+    </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/layoutContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/colorSurface"
+        tools:context=".view.fragments.homeFragment.HomeFragment">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
+            android:src="@drawable/ic_fab_add"
+            android:transitionName="fabTransition"
+            app:borderWidth="0dp"
+            app:layout_anchor="@id/homeBottomAppBar"
+            android:visibility="@{viewmodel.isHidden}"
+            app:tint="@android:color/white" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:padding="5dp"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                tools:listitem="@layout/note_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/homeBottomAppBar"
+            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:menu="@menu/nav_menu"
+            android:visibility="@{viewmodel.isHidden}"
+            app:hideOnScroll="true" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

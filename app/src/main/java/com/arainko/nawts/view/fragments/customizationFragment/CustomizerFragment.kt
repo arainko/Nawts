@@ -1,28 +1,22 @@
-package com.arainko.nawts.view.containters.customizationFragment
+package com.arainko.nawts.view.fragments.customizationFragment
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import com.arainko.nawts.R
-import com.arainko.nawts.addTo
-import com.arainko.nawts.asIntColor
-import com.arainko.nawts.removeTrailingLines
+import com.arainko.nawts.*
 import com.arainko.nawts.view.elements.NoteAdapter
-import com.arainko.nawts.view.NoteViewModel
+import com.arainko.nawts.view.viewmodels.NoteViewModel
 import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
-import kotlinx.android.synthetic.main.note_layout.*
-import kotlinx.android.synthetic.main.note_layout.view.cardHeader
-import kotlinx.android.synthetic.main.note_layout.view.cardText
 
-class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
+class CustomizerFragment() : BottomSheetDialogFragment() {
 
     lateinit var fragmentBehavior: CustomizerFragmentBehavior
     lateinit var colorToButtonMap: Map<String, MaterialButton>
@@ -59,14 +53,10 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
         val pastelColors = resources.getStringArray(R.array.pastel_colors)
         val checkmarkDrawable = ContextCompat.getDrawable(context!!, R.drawable.ic_color_check)
 
-        (cardPreview as MaterialCardView).run {
-            cardHeader.text = fragmentBehavior.note.header.removeTrailingLines()
-            cardText.text = fragmentBehavior.note.content.removeTrailingLines()
-            iconButton.icon = ContextCompat.getDrawable(context, R.drawable.ic_overflow_icon)
-            iconButton.setOnClickListener(fragmentBehavior.onOverflowButtonClickListener)
-            strokeColor = fragmentBehavior.currentStrokeColor.asIntColor()
-            setCardBackgroundColor(fragmentBehavior.currentBackgroundColor.asIntColor())
-        }
+        customizerRoot.setBackgroundColor(fragmentBehavior
+            .currentBackgroundColor
+            .asIntColor()
+            .blendARGB(Color.BLACK, 0.4f))
 
         colorToButtonMap = vibrantColors.union(pastelColors.toList())
             .mapIndexed { index, hexColor ->
@@ -97,7 +87,7 @@ class BottomSheetCustomizerFragment() : BottomSheetDialogFragment() {
     override fun onPause() {
         super.onPause()
         fragmentBehavior.commitNoteChanges()
-        cardPreview.tag?.let { (it as ValueAnimator).cancel() }
+        customizerRoot.tag?.let { (it as ValueAnimator).cancel() }
     }
 
 }

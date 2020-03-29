@@ -1,9 +1,9 @@
-package com.arainko.nawts.view.containters.homeFragment
+package com.arainko.nawts.view.fragments.homeFragment
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
 import androidx.recyclerview.widget.RecyclerView
-import com.arainko.nawts.view.NoteViewModel
+import com.arainko.nawts.view.viewmodels.NoteViewModel
 import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*

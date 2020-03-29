@@ -1,20 +1,22 @@
-package com.arainko.nawts.view.containters.editFragment
+package com.arainko.nawts.view.fragments.editFragment
 
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.arainko.nawts.R
 import com.arainko.nawts.asIntColor
 import com.arainko.nawts.blendARGB
-import com.arainko.nawts.view.NoteViewModel
-import com.arainko.nawts.view.containters.MainActivity
+import com.arainko.nawts.view.viewmodels.NoteViewModel
+import com.arainko.nawts.view.fragments.MainActivity
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.fragment_edit.*
 
@@ -41,6 +43,7 @@ class EditFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_edit, container, false)
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentBehavior = EditFragmentBehavior(this, model, args)
@@ -63,7 +66,10 @@ class EditFragment : Fragment() {
             setOnMenuItemClickListener(fragmentBehavior)
             backgroundTint = ColorStateList.valueOf(barColor)
         }
-        (requireActivity() as MainActivity).animateStatusBarColor(barColor)
+        (requireActivity() as MainActivity).animateSystemBarColors(barColor)
+        requireActivity().window.run {
+            navigationBarColor = barColor
+        }
     }
 
     override fun onResume() {
@@ -76,6 +82,6 @@ class EditFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         val defaultColor = resources.getColor(R.color.colorAccent, null)
-        (requireActivity() as MainActivity).animateStatusBarColor(defaultColor)
+        (requireActivity() as MainActivity).animateSystemBarColors(defaultColor)
     }
 }

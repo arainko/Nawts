@@ -1,20 +1,13 @@
-package com.arainko.nawts.view.containters
+package com.arainko.nawts.view.fragments
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import com.arainko.nawts.R
 import com.jakewharton.threetenabp.AndroidThreeTen
-import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +16,11 @@ class MainActivity : AppCompatActivity() {
         AndroidThreeTen.init(this)
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        val defaultColor = resources.getColor(R.color.colorAccent, null)
+        animateSystemBarColors(defaultColor)
     }
 
-    fun animateStatusBarColor(@ColorInt colorTo: Int) {
+    fun animateSystemBarColors(@ColorInt colorTo: Int) {
         val colorAnimator = ValueAnimator.ofObject(
             ArgbEvaluator(),
             window.statusBarColor,
@@ -34,6 +29,7 @@ class MainActivity : AppCompatActivity() {
             duration = resources.getInteger(R.integer.animationSpeed).toLong()
             addUpdateListener {
                 window.statusBarColor = it.animatedValue as Int
+                window.navigationBarColor = it.animatedValue as Int
             }
         }
         colorAnimator.start()

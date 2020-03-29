@@ -1,26 +1,27 @@
-package com.arainko.nawts.view.containters.customizationFragment
+package com.arainko.nawts.view.fragments.customizationFragment
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.View
-import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import com.arainko.nawts.R
 import com.arainko.nawts.asIntColor
+import com.arainko.nawts.blendARGB
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
-import com.arainko.nawts.view.NoteViewModel
+import com.arainko.nawts.view.viewmodels.NoteViewModel
 import com.arainko.nawts.view.elements.NoteAdapter
 import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
 
 class CustomizerFragmentBehavior(
-    fragment: BottomSheetCustomizerFragment,
+    fragment: CustomizerFragment,
     private val modelActions: NoteViewModel,
     val noteHolder: NoteHolder,
     val adapter: NoteAdapter
-) : FragmentUIBehavior<BottomSheetCustomizerFragment>(fragment) {
+) : FragmentUIBehavior<CustomizerFragment>(fragment) {
 
     val note = noteHolder.note
     internal var currentBackgroundColor: String = note.style.backgroundColor
@@ -30,10 +31,8 @@ class CustomizerFragmentBehavior(
     val onColorButtonClickListener = View.OnClickListener {
         val hexColor = it.tag as String
         updateColorButtonIcon(fragment.colorToButtonMap, currentBackgroundColor, hexColor)
-        updatePreviewBackgroundColor(currentBackgroundColor, hexColor)
+        updatePreviewBackgroundColor(hexColor)
         currentBackgroundColor = hexColor
-
-
     }
 
     val onColorButtonLongClickListener = View.OnLongClickListener {
@@ -42,33 +41,6 @@ class CustomizerFragmentBehavior(
         updatePreviewStrokeColor(hexColor)
         currentStrokeColor = hexColor
         true
-    }
-
-    private val onResetCustomizationMenuClickListener = PopupMenu.OnMenuItemClickListener {
-        when(it.itemId) {
-            R.id.defaultBackgroundColor -> {
-                val defaultBackgroundHex = "#ffffff"
-                updatePreviewBackgroundColor(currentBackgroundColor, defaultBackgroundHex)
-                updateColorButtonIcon(fragment.colorToButtonMap, currentBackgroundColor, defaultBackgroundHex)
-                currentBackgroundColor = defaultBackgroundHex
-                true
-            }
-            R.id.defaultStrokeColor -> {
-                val defaultStrokeHex = "#00000000"
-                updatePreviewStrokeColor(defaultStrokeHex)
-                updateColorButtonStrokes(fragment.colorToButtonMap, currentStrokeColor, defaultStrokeHex)
-                currentStrokeColor = defaultStrokeHex
-                true
-            }
-            else -> false
-        }
-    }
-
-    val onOverflowButtonClickListener = View.OnClickListener {
-        PopupMenu(it.context, it).apply {
-            inflate(R.menu.customization_menu)
-            setOnMenuItemClickListener(onResetCustomizationMenuClickListener)
-        }.show()
     }
 
     private fun updateColorButtonStrokes(
@@ -90,24 +62,25 @@ class CustomizerFragmentBehavior(
         updatedButton?.icon = ContextCompat.getDrawable(updatedButton?.context!!, R.drawable.ic_color_check)
     }
 
-    private fun updatePreviewBackgroundColor(oldColor: String, newColor: String) {
-        val colorFrom = (fragment.cardPreview as MaterialCardView).cardBackgroundColor.defaultColor
+    private fun updatePreviewBackgroundColor(newColor: String) {
+        val colorFrom = (fragment.customizerRoot.background as ColorDrawable).color
         val colorTo = newColor.asIntColor()
+            .blendARGB(Color.BLACK, 0.4f)
         val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo).apply {
             duration = 300
             addUpdateListener {
-                (fragment.cardPreview as MaterialCardView).setCardBackgroundColor(it.animatedValue as Int)
+                fragment.customizerRoot.setBackgroundColor(it.animatedValue as Int)
             }
         }
 
-        fragment.cardPreview.tag = colorAnimator
+        fragment.customizerRoot.tag = colorAnimator
 
         colorAnimator.start()
     }
 
     private fun updatePreviewStrokeColor(hexColor: String) {
-        (fragment.cardPreview as MaterialCardView)
-            .strokeColor = hexColor.asIntColor()
+//        (fragment.cardPreview as MaterialCardView)
+//            .strokeColor = hexColor.asIntColor()
     }
 
     fun commitNoteChanges() {
