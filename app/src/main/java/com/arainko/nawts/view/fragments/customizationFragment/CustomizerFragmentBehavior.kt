@@ -7,8 +7,8 @@ import android.graphics.drawable.ColorDrawable
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.arainko.nawts.R
-import com.arainko.nawts.asIntColor
-import com.arainko.nawts.blendARGB
+import com.arainko.nawts.extensions.asIntColor
+import com.arainko.nawts.extensions.blendARGB
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
 import com.arainko.nawts.view.viewmodels.NoteViewModel
 import com.arainko.nawts.view.elements.NoteAdapter

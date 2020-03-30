@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.arainko.nawts.*
+import com.arainko.nawts.extensions.addTo
+import com.arainko.nawts.extensions.asIntColor
+import com.arainko.nawts.extensions.blendARGB
 import com.arainko.nawts.view.elements.NoteAdapter
 import com.arainko.nawts.view.viewmodels.NoteViewModel
 import com.arainko.nawts.view.elements.NoteHolder

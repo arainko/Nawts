@@ -8,8 +8,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.arainko.nawts.R
-import com.arainko.nawts.hideKeyboard
-import com.arainko.nawts.makeToast
+import com.arainko.nawts.extensions.hideKeyboard
+import com.arainko.nawts.extensions.makeToast
 import com.arainko.nawts.view.DateInferer
 import com.arainko.nawts.view.abstracts.FragmentUIBehavior
 import com.arainko.nawts.view.viewmodels.NoteViewModel

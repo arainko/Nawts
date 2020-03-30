@@ -1,20 +1,16 @@
 package com.arainko.nawts.view.elements
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.R
-import com.arainko.nawts.asIntColor
+import com.arainko.nawts.extensions.asIntColor
 import com.arainko.nawts.view.abstracts.HolderBehavior
 import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import com.google.android.material.card.MaterialCardView
-import kotlinx.android.synthetic.main.fragment_edit.view.*
 import kotlinx.android.synthetic.main.note_layout.view.*
 
 class NoteAdapter(private val holderBehavior: HolderBehavior<NoteHolder>, private val dragListener: StartDragListener) : ListAdapter<Note, NoteHolder>(

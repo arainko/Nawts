@@ -24,8 +24,8 @@
             android:transitionName="fabTransition"
             app:borderWidth="0dp"
             app:layout_anchor="@id/homeBottomAppBar"
-            android:visibility="@{viewmodel.isHidden}"
-            app:tint="@android:color/white" />
+            app:tint="@android:color/white"
+            android:isVisible="@{viewmodel.isVisible()}"/>
 
 
         <LinearLayout
@@ -58,8 +58,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/nav_menu"
-            android:visibility="@{viewmodel.isHidden}"
-            app:hideOnScroll="true" />
+            android:isVisible="@{viewmodel.isVisible()}"
+            android:onClick="@{() -> viewmodel.appBarOnClick()}"
+             />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

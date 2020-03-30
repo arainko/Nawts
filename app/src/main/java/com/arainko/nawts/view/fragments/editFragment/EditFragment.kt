@@ -13,8 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.arainko.nawts.R
-import com.arainko.nawts.asIntColor
-import com.arainko.nawts.blendARGB
+import com.arainko.nawts.extensions.asIntColor
+import com.arainko.nawts.extensions.blendARGB
 import com.arainko.nawts.view.viewmodels.NoteViewModel
 import com.arainko.nawts.view.fragments.MainActivity
 import com.google.android.material.transition.MaterialContainerTransform

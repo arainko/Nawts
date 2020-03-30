@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arainko.nawts.view.viewmodels.NoteViewModel
 import com.arainko.nawts.R
-import com.arainko.nawts.dataBindings
 import com.arainko.nawts.databinding.FragmentHomeBinding
+import com.arainko.nawts.extensions.delegates.dataBinding
 import com.arainko.nawts.view.elements.NoteAdapter
 import com.arainko.nawts.view.viewmodels.HomeViewModel
 import com.google.android.material.transition.Hold
@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
 
     private val noteViewModel: NoteViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
-    private val binding by dataBindings<FragmentHomeBinding>(R.layout.fragment_home)
+    private val binding by dataBinding<FragmentHomeBinding>(R.layout.fragment_home)
     lateinit var noteAdapter: NoteAdapter
     private lateinit var fragmentBehavior: HomeFragmentBehavior
 
@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding.viewmodel = homeViewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -58,17 +59,12 @@ class HomeFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0 && fab.visibility == View.VISIBLE) {
-                    fab.hide();
-                    homeBottomAppBar.performHide()
-                    homeViewModel.isHidden = View.INVISIBLE
+                    homeViewModel.isVisible.value = false
                 } else if (dy < 0 && fab.visibility != View.VISIBLE) {
-                    fab.show();
-                    homeBottomAppBar.performShow()
-                    homeViewModel.isHidden = View.VISIBLE
+                    homeViewModel.isVisible.value = true
                 }
             }
         }
-
 
         recyclerView.addOnScrollListener(listener)
 
@@ -89,4 +85,5 @@ class HomeFragment : Fragment() {
             .recyclerViewSwipeToDismissListener
             .attachToRecyclerView(recyclerView)
     }
+
 }
