@@ -8,9 +8,11 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
+import kotlinx.android.synthetic.main.fragment_customizer.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 @BindingAdapter("android:isVisible")
 fun View.setIsVisible(isVisible: Boolean) {
@@ -24,10 +26,11 @@ fun View.setIsVisible(isVisible: Boolean) {
     }
 }
 
-@BindingAdapter("android:animateBackgroundColorChangeTo")
-fun animateColorChangeTo(view: View, @ColorInt newColor: Int) {
+@BindingAdapter("app:animateBackgroundColor")
+fun animateColorChangeTo(view: View, newColor: String) {
     val colorFrom = (view.background as ColorDrawable).color
     val colorTo = newColor
+        .asIntColor()
         .blendARGB(Color.BLACK, 0.4f)
     val colorAnimator = ValueAnimator.ofObject(ArgbEvaluator(), colorFrom, colorTo).apply {
         duration = 300
@@ -39,3 +42,4 @@ fun animateColorChangeTo(view: View, @ColorInt newColor: Int) {
     view.tag = colorAnimator
     colorAnimator.start()
 }
+

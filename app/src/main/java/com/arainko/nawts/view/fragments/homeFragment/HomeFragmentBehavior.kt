@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.arainko.nawts.R
 import com.arainko.nawts.view.fragments.customizationFragment.CustomizerFragment
-import com.arainko.nawts.view.abstracts.FragmentUIBehavior
+import com.arainko.nawts.view.abstracts.FragmentHandler
 import com.arainko.nawts.view.abstracts.HolderBehavior
 import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragmentBehavior(fragment: HomeFragment, private val model: NoteViewModel) :
-    FragmentUIBehavior<HomeFragment>(fragment),
+    FragmentHandler<HomeFragment>(fragment),
     HolderBehavior<NoteHolder>,
     StartDragListener {
 
@@ -61,8 +61,10 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val model: NoteViewMo
     }
 
     override fun onHolderLongClick(holder: NoteHolder): Boolean {
-        val bottomSheet = CustomizerFragment(model, holder, fragment.noteAdapter)
-        bottomSheet.show(fragment.activity!!.supportFragmentManager, "COS")
+        val bottomSheet = CustomizerFragment()
+        model.sharedNote = holder.note
+        bottomSheet.setTargetFragment(fragment, 1)
+        bottomSheet.show(fragment.childFragmentManager, "customizer")
         return true
     }
 

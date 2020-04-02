@@ -2,11 +2,13 @@ package com.arainko.nawts.view.fragments.homeFragment
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_home.recyclerView
 
 class HomeFragment : Fragment() {
 
-    private val noteViewModel: NoteViewModel by viewModels()
+    val noteViewModel: NoteViewModel by activityViewModels()
     private val homeViewModel: HomeViewModel by viewModels()
     private val binding by dataBinding<FragmentHomeBinding>(R.layout.fragment_home)
     lateinit var noteAdapter: NoteAdapter
@@ -84,6 +86,11 @@ class HomeFragment : Fragment() {
         fragmentBehavior
             .recyclerViewSwipeToDismissListener
             .attachToRecyclerView(recyclerView)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("TEST", "PAUSED")
     }
 
 }

@@ -12,6 +12,10 @@ import kotlin.coroutines.CoroutineContext
 
 class NoteViewModel(application: Application) : AndroidViewModel(application),
     CoroutineScope {
+
+    var sharedNote: Note? = null;
+    var sharedNoteAdapterPosition: Int? = null;
+
     private val repository: Repository =
         Repository(application)
 

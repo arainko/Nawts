@@ -11,7 +11,7 @@ import com.arainko.nawts.R
 import com.arainko.nawts.extensions.hideKeyboard
 import com.arainko.nawts.extensions.makeToast
 import com.arainko.nawts.view.DateInferer
-import com.arainko.nawts.view.abstracts.FragmentUIBehavior
+import com.arainko.nawts.view.abstracts.FragmentHandler
 import com.arainko.nawts.view.viewmodels.NoteViewModel
 import kotlinx.android.synthetic.main.fragment_edit.*
 
@@ -20,7 +20,7 @@ class EditFragmentBehavior(
     fragment: EditFragment,
     private val modelActions: NoteViewModel,
     private val args: EditFragmentArgs
-) : FragmentUIBehavior<EditFragment>(fragment),
+) : FragmentHandler<EditFragment>(fragment),
     View.OnClickListener,
     Toolbar.OnMenuItemClickListener {
 

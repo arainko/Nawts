@@ -9,23 +9,22 @@ import androidx.core.content.ContextCompat
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.asIntColor
 import com.arainko.nawts.extensions.blendARGB
-import com.arainko.nawts.view.abstracts.FragmentUIBehavior
-import com.arainko.nawts.view.viewmodels.NoteViewModel
-import com.arainko.nawts.view.elements.NoteAdapter
-import com.arainko.nawts.view.elements.NoteHolder
+import com.arainko.nawts.view.abstracts.FragmentHandler
+import com.arainko.nawts.view.fragments.homeFragment.HomeFragment
 import com.google.android.material.button.MaterialButton
-import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
+import kotlinx.android.synthetic.main.fragment_customizer.*
 
-class CustomizerFragmentBehavior(
-    fragment: CustomizerFragment,
-    private val modelActions: NoteViewModel,
-    val noteHolder: NoteHolder,
-    val adapter: NoteAdapter
-) : FragmentUIBehavior<CustomizerFragment>(fragment) {
+class CustomizerFragmentHandler(fragment: CustomizerFragment) : FragmentHandler<CustomizerFragment>(fragment) {
 
-    val note = noteHolder.note
+    val note = fragment.noteViewModel.sharedNote!!
     internal var currentBackgroundColor: String = note.style.backgroundColor
     internal var currentStrokeColor: String = note.style.strokeColor
+
+    init {
+        fragment.customizerViewModel.run {
+            backgroundColor.value = note.style.backgroundColor
+        }
+    }
 
 
     val onColorButtonClickListener = View.OnClickListener {
@@ -33,23 +32,6 @@ class CustomizerFragmentBehavior(
         updateColorButtonIcon(fragment.colorToButtonMap, currentBackgroundColor, hexColor)
         updatePreviewBackgroundColor(hexColor)
         currentBackgroundColor = hexColor
-    }
-
-    val onColorButtonLongClickListener = View.OnLongClickListener {
-        val hexColor = it.tag as String
-        updateColorButtonStrokes(fragment.colorToButtonMap, currentStrokeColor, hexColor)
-        updatePreviewStrokeColor(hexColor)
-        currentStrokeColor = hexColor
-        true
-    }
-
-    private fun updateColorButtonStrokes(
-        colorToButtonMap: Map<String, MaterialButton>,
-        oldColor: String,
-        newColor: String
-    ) {
-        colorToButtonMap[oldColor]?.strokeWidth = 0
-        colorToButtonMap[newColor]?.strokeWidth = 10
     }
 
     private fun updateColorButtonIcon(
@@ -62,6 +44,7 @@ class CustomizerFragmentBehavior(
         updatedButton?.icon = ContextCompat.getDrawable(updatedButton?.context!!, R.drawable.ic_color_check)
     }
 
+    // TODO: migrate to BindingAdapter
     private fun updatePreviewBackgroundColor(newColor: String) {
         val colorFrom = (fragment.customizerRoot.background as ColorDrawable).color
         val colorTo = newColor.asIntColor()
@@ -86,8 +69,10 @@ class CustomizerFragmentBehavior(
     fun commitNoteChanges() {
         note.style.backgroundColor = currentBackgroundColor
         note.style.strokeColor = currentStrokeColor
-        adapter.notifyItemChanged(noteHolder.adapterPosition)
-        modelActions.updateNotes(note)
+        (fragment.parentFragment as HomeFragment)
+            .noteAdapter
+            .notifyItemChanged(fragment.noteViewModel.sharedNoteAdapterPosition!!)
+
     }
 
 }

@@ -1,53 +1,46 @@
 package com.arainko.nawts.view.fragments.customizationFragment
 
 import android.animation.ValueAnimator
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.arainko.nawts.*
+import com.arainko.nawts.databinding.FragmentCustomizerBinding
 import com.arainko.nawts.extensions.addTo
 import com.arainko.nawts.extensions.asIntColor
 import com.arainko.nawts.extensions.blendARGB
-import com.arainko.nawts.view.elements.NoteAdapter
+import com.arainko.nawts.extensions.delegates.dataBinding
+import com.arainko.nawts.view.fragments.homeFragment.HomeFragment
+import com.arainko.nawts.view.viewmodels.CustomizerViewModel
 import com.arainko.nawts.view.viewmodels.NoteViewModel
-import com.arainko.nawts.view.elements.NoteHolder
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.button.MaterialButton
-import kotlinx.android.synthetic.main.bottom_sheet_customization_layout.*
+import kotlinx.android.synthetic.main.fragment_customizer.*
 
-class CustomizerFragment() : BottomSheetDialogFragment() {
+class CustomizerFragment : BottomSheetDialogFragment() {
 
-    lateinit var fragmentBehavior: CustomizerFragmentBehavior
+    val noteViewModel: NoteViewModel by viewModels()
+    val customizerViewModel: CustomizerViewModel by viewModels()
+    private val binding: FragmentCustomizerBinding by dataBinding(R.layout.fragment_customizer)
+
+    val fragmentHandler: CustomizerFragmentHandler = CustomizerFragmentHandler(this)
     lateinit var colorToButtonMap: Map<String, MaterialButton>
 
-    constructor(
-        modelActions: NoteViewModel,
-        holder: NoteHolder,
-        adapter: NoteAdapter
-    ) : this() {
-        fragmentBehavior =
-            CustomizerFragmentBehavior(
-                this,
-                modelActions,
-                holder,
-                adapter
-            )
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (!this::fragmentBehavior.isInitialized) dismissAllowingStateLoss()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.bottom_sheet_customization_layout, container, false)
+    ): View? {
+        binding.viewmodel = customizerViewModel
+        binding.lifecycleOwner = this
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +49,8 @@ class CustomizerFragment() : BottomSheetDialogFragment() {
         val pastelColors = resources.getStringArray(R.array.pastel_colors)
         val checkmarkDrawable = ContextCompat.getDrawable(context!!, R.drawable.ic_color_check)
 
-        customizerRoot.setBackgroundColor(fragmentBehavior
+        // TODO: Migrate to BindingAdapter
+        binding.customizerRoot.setBackgroundColor(fragmentHandler
             .currentBackgroundColor
             .asIntColor()
             .blendARGB(Color.BLACK, 0.4f))
@@ -72,8 +66,7 @@ class CustomizerFragment() : BottomSheetDialogFragment() {
             button.run {
                 tag = hexColor
                 setBackgroundColor(hexColor.asIntColor())
-                setOnClickListener(fragmentBehavior.onColorButtonClickListener)
-                setOnLongClickListener(fragmentBehavior.onColorButtonLongClickListener)
+                setOnClickListener(fragmentHandler.onColorButtonClickListener)
             }
         }
 
@@ -82,14 +75,13 @@ class CustomizerFragment() : BottomSheetDialogFragment() {
             materialButton.addTo(parentContainer)
         }
 
-        colorToButtonMap[fragmentBehavior.currentBackgroundColor]?.icon = checkmarkDrawable
-        colorToButtonMap[fragmentBehavior.currentStrokeColor]?.strokeWidth = 10
+        colorToButtonMap[fragmentHandler.currentBackgroundColor]?.icon = checkmarkDrawable
 
     }
 
     override fun onPause() {
         super.onPause()
-        fragmentBehavior.commitNoteChanges()
+        fragmentHandler.commitNoteChanges()
         customizerRoot.tag?.let { (it as ValueAnimator).cancel() }
     }
 
