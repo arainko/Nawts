@@ -1,5 +1,6 @@
 package com.arainko.nawts.view.fragments.homeFragment
 
+import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -61,9 +62,12 @@ class HomeFragmentBehavior(fragment: HomeFragment, private val model: NoteViewMo
     }
 
     override fun onHolderLongClick(holder: NoteHolder): Boolean {
-        val bottomSheet = CustomizerFragment()
-        model.sharedNote = holder.note
-        bottomSheet.setTargetFragment(fragment, 1)
+        val bottomSheet = CustomizerFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("note", holder.note)
+                putInt("adapterPosition", holder.adapterPosition)
+            }
+        }
         bottomSheet.show(fragment.childFragmentManager, "customizer")
         return true
     }

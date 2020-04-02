@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_home.recyclerView
 
 class HomeFragment : Fragment() {
 
-    val noteViewModel: NoteViewModel by activityViewModels()
+    private val noteViewModel: NoteViewModel by activityViewModels()
     private val homeViewModel: HomeViewModel by viewModels()
     private val binding by dataBinding<FragmentHomeBinding>(R.layout.fragment_home)
     lateinit var noteAdapter: NoteAdapter
@@ -52,8 +52,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentBehavior = HomeFragmentBehavior(this, noteViewModel)
-//        val fabAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_out)
-//        fab.startAnimation(fabAnim)
         noteAdapter = NoteAdapter(fragmentBehavior, fragmentBehavior)
         homeBottomAppBar.setOnMenuItemClickListener(fragmentBehavior.bottomBarListener)
 

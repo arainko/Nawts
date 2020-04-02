@@ -4,6 +4,9 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.findFragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.arainko.nawts.R
 import com.arainko.nawts.view.abstracts.HolderBehavior
