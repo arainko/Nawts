@@ -8,11 +8,14 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.fragment_customizer.*
 import kotlinx.android.synthetic.main.fragment_home.*
+
 
 @BindingAdapter("android:isVisible")
 fun View.setIsVisible(isVisible: Boolean) {
@@ -42,4 +45,6 @@ fun animateColorChangeTo(view: View, newColor: String) {
     view.tag = colorAnimator
     colorAnimator.start()
 }
+
+
 

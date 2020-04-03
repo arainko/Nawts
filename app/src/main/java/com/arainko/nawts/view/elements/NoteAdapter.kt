@@ -38,6 +38,7 @@ class NoteAdapter(private val holderBehavior: HolderBehavior<NoteHolder>, privat
             strokeColor = currentNote.style.strokeColor.asIntColor()
             // TODO: Make the text not overlap with drag handle
             cardHeader.visibility = if (currentNote.header.isBlank()) View.GONE else View.VISIBLE
+//            cardText.visibility = if (currentNote.content.isBlank()) View.GONE else View.VISIBLE
         }
     }
 

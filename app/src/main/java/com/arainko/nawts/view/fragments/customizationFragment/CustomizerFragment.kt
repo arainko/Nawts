@@ -31,15 +31,14 @@ class CustomizerFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        customizerViewModel.run {
+    ): View? = binding.run {
+        viewmodel = customizerViewModel.apply {
             note = arguments?.getParcelable("note")!!
             noteAdapterPosition = arguments?.getInt("adapterPosition")!!
             backgroundColor.value = note.style.backgroundColor
         }
-        binding.viewmodel = customizerViewModel
-        binding.lifecycleOwner = this
-        return binding.root
+        lifecycleOwner = this@CustomizerFragment
+        root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
