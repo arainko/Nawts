@@ -1,4 +1,4 @@
-package com.arainko.nawts.view.fragments.customizationFragment
+package com.arainko.nawts.view.fragments
 
 import android.animation.ValueAnimator
 import android.os.Bundle
@@ -13,7 +13,6 @@ import com.arainko.nawts.databinding.FragmentCustomizerBinding
 import com.arainko.nawts.extensions.addTo
 import com.arainko.nawts.extensions.asIntColor
 import com.arainko.nawts.extensions.delegates.dataBinding
-import com.arainko.nawts.view.fragments.homeFragment.HomeFragment
 import com.arainko.nawts.view.viewmodels.CustomizerViewModel
 import com.arainko.nawts.view.viewmodels.NoteViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

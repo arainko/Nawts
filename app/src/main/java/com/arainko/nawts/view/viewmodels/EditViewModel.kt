@@ -10,6 +10,7 @@ import kotlin.properties.Delegates
 
 class EditViewModel : ViewModel() {
     var note: Note by Delegates.notNull()
+    var layoutTransitionName: String by Delegates.notNull()
 
     val backgroundColor: Int
         get() = note.style.backgroundColor.asIntColor()

@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@{viewmodel.backgroundColor}"
-        android:transitionName="transitionName"
-        tools:context=".view.fragments.editFragment.EditFragment">
+        android:transitionName="@{viewmodel.layoutTransitionName}"
+        tools:context=".view.fragments.EditFragment">
 
         <LinearLayout
             android:id="@+id/constraintLayout"

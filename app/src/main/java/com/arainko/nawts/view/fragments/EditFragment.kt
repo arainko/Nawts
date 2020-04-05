@@ -1,9 +1,7 @@
-package com.arainko.nawts.view.fragments.editFragment
+package com.arainko.nawts.view.fragments
 
 
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.view.LayoutInflater
@@ -15,22 +13,17 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.arainko.nawts.R
 import com.arainko.nawts.databinding.FragmentEditBinding
-import com.arainko.nawts.extensions.asIntColor
-import com.arainko.nawts.extensions.blendARGB
 import com.arainko.nawts.extensions.delegates.dataBinding
 import com.arainko.nawts.extensions.hideKeyboard
 import com.arainko.nawts.extensions.makeToast
 import com.arainko.nawts.view.DateInferer
 import com.arainko.nawts.view.viewmodels.NoteViewModel
-import com.arainko.nawts.view.fragments.MainActivity
 import com.arainko.nawts.view.viewmodels.EditViewModel
 import com.google.android.material.transition.MaterialContainerTransform
-import kotlinx.android.synthetic.main.fragment_edit.*
 
 
 /**
@@ -57,14 +50,16 @@ class EditFragment : Fragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = binding.run {
-        viewmodel = editViewModel.apply { note = args.note }
+        viewmodel = editViewModel.apply {
+            note = args.note
+            layoutTransitionName = args.transitionName
+        }
         lifecycleOwner = this@EditFragment
         root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.editFragmentRootLayout.transitionName = args.transitionName
         binding.fabSave.setOnClickListener(this)
         binding.bottomAppBar.setOnMenuItemClickListener(this)
         (requireActivity() as MainActivity).animateSystemBarColors(editViewModel.systemBarColor)

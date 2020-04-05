@@ -7,17 +7,20 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.arainko.nawts.view.fragments.homeFragment.HomeFragment"
+        android:name="com.arainko.nawts.view.fragments.HomeFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_to_editingFragment"
             app:destination="@id/editingFragment" />
+        <action
+            android:id="@+id/action_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/editingFragment"
-        android:name="com.arainko.nawts.view.fragments.editFragment.EditFragment"
+        android:name="com.arainko.nawts.view.fragments.EditFragment"
         android:label="fragment_note_edit"
         tools:layout="@layout/fragment_edit">
         <argument
@@ -37,5 +40,10 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.arainko.nawts.view.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 
 </navigation>

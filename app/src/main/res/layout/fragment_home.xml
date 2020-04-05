@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorSurface"
-        tools:context=".view.fragments.homeFragment.HomeFragment">
+        tools:context=".view.fragments.HomeFragment">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -25,6 +25,7 @@
             app:borderWidth="0dp"
             app:layout_anchor="@id/homeBottomAppBar"
             app:tint="@android:color/white"
+            android:onClick="@{() -> viewmodel.fabOnClick(fab)}"
             android:isVisible="@{viewmodel.isVisible()}"/>
 
 
@@ -32,15 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:padding="5dp"
-                android:visibility="gone"
-                tools:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -58,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/nav_menu"
+            android:transitionName="searchTransition"
             android:isVisible="@{viewmodel.isVisible()}"
             android:onClick="@{() -> viewmodel.appBarOnClick()}"
              />

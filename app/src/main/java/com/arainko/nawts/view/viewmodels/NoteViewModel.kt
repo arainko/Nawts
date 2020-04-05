@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.properties.Delegates
 
-class NoteViewModel(application: Application) : AndroidViewModel(application),
+open class NoteViewModel(application: Application) : AndroidViewModel(application),
     CoroutineScope {
 
     private val repository: Repository =
