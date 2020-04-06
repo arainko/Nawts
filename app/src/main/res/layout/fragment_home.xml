@@ -50,6 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:menu="@menu/nav_menu"
+            app:fabCradleMargin="0dp"
+            app:fabCradleRoundedCornerRadius="0dp"
             android:transitionName="searchTransition"
             android:isVisible="@{viewmodel.isVisible()}"
             android:onClick="@{() -> viewmodel.appBarOnClick()}"

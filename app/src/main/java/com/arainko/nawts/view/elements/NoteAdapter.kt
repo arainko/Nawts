@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import com.arainko.nawts.R
 import com.arainko.nawts.extensions.asIntColor
 import com.arainko.nawts.view.abstracts.HolderBehavior
-import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.persistence.entities.Note
 import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.note_layout.view.*

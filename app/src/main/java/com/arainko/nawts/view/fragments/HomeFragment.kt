@@ -1,7 +1,6 @@
 package com.arainko.nawts.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -14,7 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arainko.nawts.view.viewmodels.NoteViewModel
@@ -22,12 +20,11 @@ import com.arainko.nawts.R
 import com.arainko.nawts.databinding.FragmentHomeBinding
 import com.arainko.nawts.extensions.delegates.dataBinding
 import com.arainko.nawts.view.abstracts.HolderBehavior
-import com.arainko.nawts.view.abstracts.StartDragListener
 import com.arainko.nawts.view.elements.NoteAdapter
 import com.arainko.nawts.view.elements.NoteHolder
+import com.arainko.nawts.view.elements.StartDragListener
 import com.arainko.nawts.view.viewmodels.HomeViewModel
 import com.google.android.material.transition.Hold
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.recyclerView
 
 class HomeFragment : Fragment(),
@@ -50,17 +47,17 @@ class HomeFragment : Fragment(),
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding.viewmodel = homeViewModel
-        binding.lifecycleOwner = this
-        return binding.root
+    ): View? = binding.run {
+        viewmodel = homeViewModel
+        lifecycleOwner = this@HomeFragment
+        root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dismissListener = SwipeDragCallback(homeViewModel).callback
             .apply { attachToRecyclerView(binding.recyclerView) }
-        noteAdapter = NoteAdapter(this, StartDragListener { dismissListener.startDrag(it) })
+        noteAdapter = NoteAdapter(this) { viewHolder -> dismissListener.startDrag(viewHolder)  }
         binding.homeBottomAppBar.setOnMenuItemClickListener(this)
 
         noteViewModel.notes.observe(viewLifecycleOwner, Observer {
